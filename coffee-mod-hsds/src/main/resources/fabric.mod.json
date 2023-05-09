@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "coffee_mod",
+  "version": "${version}",
+  "name": "Coffee Mod",
+  "description": "A fabric implementation of the coffee mod, idea by hsds.",
+  "authors": [
+    "commandblock2"
+  ],
+  "contact": {
+    "homepage": "https://github.com/commandblock2/coffee-mod-hsds",
+    "issues": "https://github.com/commandblock2/coffee-mod-hsds/issues",
+    "sources": "https://github.com/commandblock2/coffee-mod-hsds"
+  },
+  "license": "GNU General Public License v3.0",
+  "icon": "assets/coffee_mod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "github.commandblock2.coffee_mod.CoffeeMod"
+      }
+    ]
+  },
+  "mixins": [
+    "coffee_mod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${fabricloader}",
+    "fabric-api": ">=${fabric_api}",
+    "fabric-language-kotlin": ">=${fabric_language_kotlin}",
+    "minecraft": ">=${minecraft}",
+    "java": ">=${java}"
+  }
+}
