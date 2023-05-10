@@ -20,7 +20,6 @@
 package github.commandblock2.coffee_mod
 import github.commandblock2.coffee_mod.effect.EffectRegistry
 import net.fabricmc.api.ModInitializer
-import net.minecraft.potion.Potions
 
 @Suppress("UNUSED")
 object CoffeeMod: ModInitializer {

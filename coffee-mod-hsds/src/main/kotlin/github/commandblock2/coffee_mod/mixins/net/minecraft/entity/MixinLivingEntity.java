@@ -1,7 +1,6 @@
 package github.commandblock2.coffee_mod.mixins.net.minecraft.entity;
 
 import github.commandblock2.coffee_mod.effect.EffectRegistry;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.mob.PhantomEntity;
@@ -19,8 +18,9 @@ public class MixinLivingEntity {
         if (this_ instanceof PhantomEntity &&
                 entity instanceof PlayerEntity &&
                 entity.hasStatusEffect(EffectRegistry.INSTANCE.getCoffeeBuzzStatusEffect())
-        )
+        ) {
             info.setReturnValue(false);
-
+            ((PhantomEntity) this_).setTarget(null);
+        }
     }
 }
