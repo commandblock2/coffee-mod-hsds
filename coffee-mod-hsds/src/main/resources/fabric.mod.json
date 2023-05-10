@@ -27,10 +27,11 @@
     "coffee_mod.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${fabricloader}",
-    "fabric-api": ">=${fabric_api}",
-    "fabric-language-kotlin": ">=${fabric_language_kotlin}",
-    "minecraft": ">=${minecraft}",
-    "java": ">=${java}"
-  }
+    "fabricloader": "*",
+    "fabric-api": "*",
+    "fabric-language-kotlin": "*",
+    "minecraft": "~1.19.4",
+    "java": ">=17"
+  },
+  "accessWidener": "coffee_mod.accesswidener"
 }

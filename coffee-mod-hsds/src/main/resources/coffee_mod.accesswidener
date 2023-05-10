@@ -1,0 +1,3 @@
+accessWidener	v1	named
+accessible class net/minecraft/entity/mob/PhantomEntity$FindTargetGoal
+accessible method net/minecraft/entity/ai/goal/Goal toGoalTicks (I)I
