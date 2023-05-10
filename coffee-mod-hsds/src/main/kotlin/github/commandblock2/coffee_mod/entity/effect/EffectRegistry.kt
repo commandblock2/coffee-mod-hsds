@@ -1,4 +1,4 @@
-package github.commandblock2.coffee_mod.effect
+package github.commandblock2.coffee_mod.entity.effect
 
 import github.commandblock2.coffee_mod.CoffeeMod
 import net.minecraft.registry.Registries

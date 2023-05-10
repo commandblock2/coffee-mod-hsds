@@ -1,6 +1,6 @@
 package github.commandblock2.coffee_mod.mixins.net.minecraft.server.world;
 
-import github.commandblock2.coffee_mod.effect.EffectRegistry;
+import github.commandblock2.coffee_mod.entity.effect.EffectRegistry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.SleepManager;
 import org.spongepowered.asm.mixin.Mixin;

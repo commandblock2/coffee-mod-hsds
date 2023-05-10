@@ -18,7 +18,7 @@
  */
 
 package github.commandblock2.coffee_mod
-import github.commandblock2.coffee_mod.effect.EffectRegistry
+import github.commandblock2.coffee_mod.entity.effect.EffectRegistry
 import net.fabricmc.api.ModInitializer
 
 @Suppress("UNUSED")

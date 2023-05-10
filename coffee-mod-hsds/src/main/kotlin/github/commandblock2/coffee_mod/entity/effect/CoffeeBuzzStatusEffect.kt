@@ -1,4 +1,4 @@
-package github.commandblock2.coffee_mod.effect
+package github.commandblock2.coffee_mod.entity.effect
 
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.attribute.AttributeContainer
