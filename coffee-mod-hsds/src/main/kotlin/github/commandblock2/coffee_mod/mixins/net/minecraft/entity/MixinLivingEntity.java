@@ -58,12 +58,12 @@ public abstract class MixinLivingEntity {
             return;
 
         coffeeCountdown--;
-        if (coffeeCountdown < 0 && coffeeCountdown % 20 == this_.getId() % 20) {
+        if (coffeeCountdown < 0 && coffeeCountdown % 20 + 19 == this_.getId() % 20) {
             // 1 / 2 death expectation at 30 min
             final var secs = 30 * 60;
             final var oneOverDeathRate = secs * secs * 2;
 
-            if (coffeeCountdown * -20 > getRandom().nextInt(oneOverDeathRate)) {
+            if (coffeeCountdown / -20 > getRandom().nextInt(oneOverDeathRate)) {
                 this.kill();
             }
         }
