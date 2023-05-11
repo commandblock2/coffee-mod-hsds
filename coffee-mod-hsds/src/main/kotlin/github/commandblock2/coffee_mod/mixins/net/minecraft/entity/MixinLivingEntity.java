@@ -28,7 +28,7 @@ public abstract class MixinLivingEntity {
     @Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
 
     @Unique
-    static private final long COFFEE_SAFE_TICKS = 20 * 60 * 1;
+    static private final long COFFEE_SAFE_TICKS = 20 * 60 * 30;
 
     @Unique
     private long coffeeCountdown;
@@ -59,7 +59,7 @@ public abstract class MixinLivingEntity {
         coffeeCountdown--;
         if (coffeeCountdown < 0 && coffeeCountdown % 20 + 19 == this_.getId() % 20) {
             // 1 / 2 death expectation at 30 min
-            final var secs = 1 * 60;
+            final var secs = 15 * 60;
             final var oneOverDeathRate = secs * secs;
 
             if (coffeeCountdown / -20 > getRandom().nextInt(oneOverDeathRate)) {
