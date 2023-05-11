@@ -2,7 +2,7 @@
 A fabric implementation of the coffee mod, idea by hsds. The link of the video https://www.bilibili.com/video/BV1JD4y1579K/.
 
 ## Features
-- Can brew coffee with brewing table
+- ✓ Can brew coffee with brewing table
 - Consuming coffee gives a potion effect (Coffee Buzz) which
   1. ✓ exempts you from phantoms
   2. ✓ prevents night skipping when trying to sleep
