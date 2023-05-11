@@ -18,13 +18,25 @@
  */
 
 package github.commandblock2.coffee_mod
-import github.commandblock2.coffee_mod.entity.effect.CoffeModEffects
+import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
+import github.commandblock2.coffee_mod.item.CoffeeModItems
+import github.commandblock2.coffee_mod.potion.CoffeeModPotions
 import net.fabricmc.api.ModInitializer
+import net.minecraft.registry.Registry
+import net.minecraft.registry.RegistryKey
+import net.minecraft.util.Identifier
 
 @Suppress("UNUSED")
 object CoffeeMod: ModInitializer {
     const val MOD_ID = "coffee_mod"
     override fun onInitialize() {
-        CoffeModEffects
+        CoffeeModEffects
+        CoffeeModItems
+        CoffeeModPotions
     }
+
+    fun <V, T : V?> register(registry: Registry<V>, path: String, entry: T): T {
+        return Registry.register(registry, Identifier(MOD_ID, path), entry)
+    }
+
 }

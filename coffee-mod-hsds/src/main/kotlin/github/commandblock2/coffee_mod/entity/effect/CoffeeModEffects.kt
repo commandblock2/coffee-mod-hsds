@@ -5,11 +5,11 @@ import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
 
-object CoffeModEffects {
+object CoffeeModEffects {
      val coffeeBuzzStatusEffect = CoffeeBuzzStatusEffect()
     init {
-        Registry.register(
-            Registries.STATUS_EFFECT, Identifier(CoffeeMod.MOD_ID, "coffee_buzz"),
+        CoffeeMod.register(
+            Registries.STATUS_EFFECT,  "coffee_buzz",
             coffeeBuzzStatusEffect
         )
     }

@@ -7,6 +7,7 @@
   },
   "mixins": [
     "net.minecraft.entity.MixinLivingEntity",
+    "net.minecraft.recipe.MixinBrewingRecipeRegistry",
     "net.minecraft.server.world.MixinSleepManager"
   ]
 }

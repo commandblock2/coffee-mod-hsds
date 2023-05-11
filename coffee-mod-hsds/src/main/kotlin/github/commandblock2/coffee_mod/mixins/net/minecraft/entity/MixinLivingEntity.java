@@ -1,6 +1,6 @@
 package github.commandblock2.coffee_mod.mixins.net.minecraft.entity;
 
-import github.commandblock2.coffee_mod.entity.effect.CoffeModEffects;
+import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -10,6 +10,7 @@ import net.minecraft.entity.mob.PhantomEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -27,6 +28,8 @@ public abstract class MixinLivingEntity {
 
     @Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
 
+    @Shadow public abstract @Nullable StatusEffectInstance getStatusEffect(StatusEffect effect);
+
     @Unique
     static private final long COFFEE_SAFE_TICKS = 20 * 60 * 30;
 
@@ -38,7 +41,7 @@ public abstract class MixinLivingEntity {
         final var this_ = (LivingEntity) (Object) this;
         if (this_ instanceof PhantomEntity &&
                 entity instanceof PlayerEntity &&
-                entity.hasStatusEffect(CoffeModEffects.INSTANCE.getCoffeeBuzzStatusEffect())
+                entity.hasStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect())
         ) {
             info.setReturnValue(false);
             ((PhantomEntity) this_).setTarget(null);
@@ -53,17 +56,21 @@ public abstract class MixinLivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
         final var this_ = (LivingEntity) (Object) this;
-        if (!hasStatusEffect(CoffeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()) || this_.world.isClient)
+        if (this_.world.isClient)
             return;
 
-        coffeeCountdown--;
-        if (coffeeCountdown < 0 && coffeeCountdown % 20 + 19 == this_.getId() % 20) {
-            // 1 / 2 death expectation at 30 min
-            final var secs = 15 * 60;
-            final var oneOverDeathRate = secs * secs;
+        final int tickSpeed = hasStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()) ? getStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()).getAmplifier() : 0;
 
-            if (coffeeCountdown / -20 > getRandom().nextInt(oneOverDeathRate)) {
-                this.kill();
+        for (int i = 0; i < tickSpeed; i++) {
+            coffeeCountdown--;
+            if (coffeeCountdown < 0 && coffeeCountdown % 20 + 19 == this_.getId() % 20) {
+                // 1 / 2 death expectation at 30 min
+                final var secs = 15 * 60;
+                final var oneOverDeathRate = secs * secs;
+
+                if (coffeeCountdown / -20 > getRandom().nextInt(oneOverDeathRate)) {
+                    this.kill();
+                }
             }
         }
     }
