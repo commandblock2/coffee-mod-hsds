@@ -1,7 +1,6 @@
 package github.commandblock2.coffee_mod.mixins.net.minecraft.entity;
 
-import github.commandblock2.coffee_mod.entity.effect.EffectRegistry;
-import net.minecraft.entity.Entity;
+import github.commandblock2.coffee_mod.entity.effect.CoffeModEffects;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
@@ -29,7 +28,7 @@ public abstract class MixinLivingEntity {
     @Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
 
     @Unique
-    static private long COFFEE_SAFE_TICKS = 20 * 60 * 30;
+    static private final long COFFEE_SAFE_TICKS = 20 * 60 * 1;
 
     @Unique
     private long coffeeCountdown;
@@ -39,7 +38,7 @@ public abstract class MixinLivingEntity {
         final var this_ = (LivingEntity) (Object) this;
         if (this_ instanceof PhantomEntity &&
                 entity instanceof PlayerEntity &&
-                entity.hasStatusEffect(EffectRegistry.INSTANCE.getCoffeeBuzzStatusEffect())
+                entity.hasStatusEffect(CoffeModEffects.INSTANCE.getCoffeeBuzzStatusEffect())
         ) {
             info.setReturnValue(false);
             ((PhantomEntity) this_).setTarget(null);
@@ -54,14 +53,14 @@ public abstract class MixinLivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
         final var this_ = (LivingEntity) (Object) this;
-        if (!hasStatusEffect(EffectRegistry.INSTANCE.getCoffeeBuzzStatusEffect()) || this_.world.isClient)
+        if (!hasStatusEffect(CoffeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()) || this_.world.isClient)
             return;
 
         coffeeCountdown--;
         if (coffeeCountdown < 0 && coffeeCountdown % 20 + 19 == this_.getId() % 20) {
             // 1 / 2 death expectation at 30 min
-            final var secs = 30 * 60;
-            final var oneOverDeathRate = secs * secs * 2;
+            final var secs = 1 * 60;
+            final var oneOverDeathRate = secs * secs;
 
             if (coffeeCountdown / -20 > getRandom().nextInt(oneOverDeathRate)) {
                 this.kill();

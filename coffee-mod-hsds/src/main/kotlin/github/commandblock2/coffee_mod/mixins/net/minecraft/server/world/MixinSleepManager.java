@@ -1,6 +1,6 @@
 package github.commandblock2.coffee_mod.mixins.net.minecraft.server.world;
 
-import github.commandblock2.coffee_mod.entity.effect.EffectRegistry;
+import github.commandblock2.coffee_mod.entity.effect.CoffeModEffects;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.SleepManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +33,7 @@ public class MixinSleepManager {
                 continue;
             updated_total++;
 
-            if (!player.isSleeping() || player.hasStatusEffect(EffectRegistry.INSTANCE.getCoffeeBuzzStatusEffect()))
+            if (!player.isSleeping() || player.hasStatusEffect(CoffeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()))
                 continue;
 
             updated_sleeping++;
