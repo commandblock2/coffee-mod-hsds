@@ -2,13 +2,9 @@ package github.commandblock2.coffee_mod.potion
 
 import github.commandblock2.coffee_mod.CoffeeMod
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
-import github.commandblock2.coffee_mod.mixins.net.minecraft.recipe.MixinBrewingRecipeRegistry
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
-import net.minecraft.item.Item
-import net.minecraft.item.Items
 import net.minecraft.potion.Potion
-import net.minecraft.potion.Potions
 import net.minecraft.registry.Registries
 
 object CoffeeModPotions {
