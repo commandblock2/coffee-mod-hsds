@@ -18,6 +18,7 @@
  */
 
 package github.commandblock2.coffee_mod
+import github.commandblock2.coffee_mod.entity.ai.brain.CoffeeModSchedule
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
 import github.commandblock2.coffee_mod.item.CoffeeModItems
 import github.commandblock2.coffee_mod.potion.CoffeeModPotions
@@ -33,6 +34,7 @@ object CoffeeMod: ModInitializer {
         CoffeeModEffects
         CoffeeModItems
         CoffeeModPotions
+        CoffeeModSchedule
     }
 
     fun <V, T : V?> register(registry: Registry<V>, path: String, entry: T): T {

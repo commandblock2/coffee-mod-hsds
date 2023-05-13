@@ -1,1 +1,2 @@
 accessWidener	v1	named
+accessible method net/minecraft/entity/ai/brain/Schedule register (Ljava/lang/String;)Lnet/minecraft/entity/ai/brain/ScheduleBuilder;

@@ -1,14 +1,26 @@
 package github.commandblock2.coffee_mod.mixins.net.minecraft.entity;
 
+import com.google.common.collect.ImmutableSet;
+import com.mojang.datafixers.util.Pair;
+import github.commandblock2.coffee_mod.entity.effect.CoffeeBuzzStatusEffect;
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.entity.ai.brain.Activity;
+import net.minecraft.entity.ai.brain.MemoryModuleState;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
+import net.minecraft.entity.ai.brain.Schedule;
+import net.minecraft.entity.ai.brain.task.VillagerTaskListProvider;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.PhantomEntity;
+import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -76,7 +88,11 @@ public abstract class MixinLivingEntity {
     }
 
     @Inject(method = "onStatusEffectRemoved", at = @At("HEAD"))
-    private void resetCoffeeCountdown(StatusEffectInstance effect, CallbackInfo ci) {
-        coffeeCountdown = COFFEE_SAFE_TICKS;
+    private void onStatusEffectRemoved(StatusEffectInstance effect, CallbackInfo ci) {
+        final var this_ = (LivingEntity) (Object) this;
+        if (effect.getEffectType() == CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect() && !this_.world.isClient) {
+            coffeeCountdown = COFFEE_SAFE_TICKS;
+        }
+
     }
 }

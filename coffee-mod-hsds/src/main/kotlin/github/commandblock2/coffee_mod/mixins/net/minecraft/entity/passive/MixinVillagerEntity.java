@@ -1,11 +1,14 @@
 package github.commandblock2.coffee_mod.mixins.net.minecraft.entity.passive;
 
 
+import github.commandblock2.coffee_mod.entity.ai.brain.CoffeeModSchedule;
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects;
+import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.passive.VillagerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(VillagerEntity.class)
@@ -21,6 +24,20 @@ public class MixinVillagerEntity {
     public void wantsTOStartBreeding(CallbackInfoReturnable<Boolean> cir) {
         if(((VillagerEntity)(Object)this).hasStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()))
             cir.setReturnValue(false);
+    }
+
+
+    @Inject(method = "initBrain", at = @At("TAIL"))
+    public void initBrain(Brain<VillagerEntity> brain, CallbackInfo ci) {
+        final var entity = ((VillagerEntity)(Object)this);
+        if(entity.hasStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect())) {
+            if (entity.isBaby())
+                entity.getBrain()
+                        .setSchedule(CoffeeModSchedule.INSTANCE.getVILLAGER_BABY_COFFEE());
+            else
+                entity.getBrain()
+                        .setSchedule(CoffeeModSchedule.INSTANCE.getVILLAGER_COFFEE());
+        }
     }
 
 }
