@@ -17,7 +17,7 @@
  * along with CoffeeMod. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package github.commandblock2.coffee_mod.mixins.net.minecraft.entity.passive;
+package github.commandblock2.coffee_mod.mixins.minecraft.entity.passive;
 
 
 import github.commandblock2.coffee_mod.entity.ai.brain.CoffeeModSchedule;

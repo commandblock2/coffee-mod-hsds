@@ -17,25 +17,9 @@
  * along with CoffeeMod. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package github.commandblock2.coffee_mod.item
+package github.commandblock2.lang.interop.util;
 
-import github.commandblock2.coffee_mod.CoffeeMod
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings
-import net.minecraft.item.Item
-import net.minecraft.registry.Registries
-
-
-object CoffeeModItems {
-
-    val CatShitCoffeeBeanItem = CoffeeMod.register(
-        Registries.ITEM, "cat_shit_coffee_bean",
-        Item(
-            FabricItemSettings()
-                .maxCount(64)
-        )
-    )
-
-    init {
-        CatShitCoffeeBeanItem
-    }
+@FunctionalInterface
+public interface TriConsumer<A, B, C> {
+    void accept(A a, B b, C c);
 }

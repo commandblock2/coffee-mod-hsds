@@ -6,9 +6,10 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "net.minecraft.entity.MixinLivingEntity",
-    "net.minecraft.entity.passive.MixinVillagerEntity",
-    "net.minecraft.recipe.MixinBrewingRecipeRegistry",
-    "net.minecraft.server.world.MixinSleepManager"
+    "minecraft.entity.MixinLivingEntity",
+    "minecraft.entity.passive.MixinCatEntity",
+    "minecraft.entity.passive.MixinVillagerEntity",
+    "minecraft.recipe.MixinBrewingRecipeRegistry",
+    "minecraft.server.world.MixinSleepManager"
   ]
 }

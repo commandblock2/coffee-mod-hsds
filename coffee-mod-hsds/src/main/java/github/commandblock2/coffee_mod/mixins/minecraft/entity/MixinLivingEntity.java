@@ -17,7 +17,7 @@
  * along with CoffeeMod. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package github.commandblock2.coffee_mod.mixins.net.minecraft.entity;
+package github.commandblock2.coffee_mod.mixins.minecraft.entity;
 
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects;
 import net.minecraft.entity.EntityType;
