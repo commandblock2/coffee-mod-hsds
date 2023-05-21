@@ -11,7 +11,7 @@ A fabric implementation of the coffee mod, idea by hsds. The link of the video h
 
 - ✓ Feeding cat with cocoa bean may produce `Kopi Luwak Bean (Cat Shit Coffee Bean)`(with boosted effect) 
 - Different mob may produce special coffee bean when fed, for example
-  1. Dragon Shit Coffee enables the ability to spit dragon breath
+  1. ✓ Dragon Shit Coffee enables the ability to spit dragon breath
   2. Villager Shit Coffee can cause an enlarged nose after consumption
   3. More to be added ... waiting for your proposal
 - Advancements
