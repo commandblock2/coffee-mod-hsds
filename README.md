@@ -17,3 +17,10 @@ A fabric implementation of the coffee mod, idea by hsds. The link of the video h
 - Advancements
 
 Note that cocoa bean is different from coffee bean in reality
+
+## TODO
+- Finish advancements and rewrite previous section according to advancements
+- Texturing
+- Also game play improvement like particles and sound effect
+- Fix the two timers not being saved/loaded
+- Mix the color of coffee and 2 colors from spawn egg
