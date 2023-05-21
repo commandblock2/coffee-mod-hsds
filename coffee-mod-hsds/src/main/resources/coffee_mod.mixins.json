@@ -11,5 +11,8 @@
     "minecraft.entity.passive.MixinVillagerEntity",
     "minecraft.recipe.MixinBrewingRecipeRegistry",
     "minecraft.server.world.MixinSleepManager"
+  ],
+  "client": [
+    "minecraft.client.MixinMinecraftClient"
   ]
 }
