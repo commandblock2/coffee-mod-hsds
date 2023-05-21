@@ -17,10 +17,11 @@
  * along with CoffeeMod. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package github.commandblock2.coffee_mod.mixins.minecraft.entity.passive;
+package github.commandblock2.coffee_mod.mixins.minecraft.entity.mob;
 
+import github.commandblock2.coffee_mod.CoffeeMod;
 import github.commandblock2.coffee_mod.item.CoffeeModItems;
-import net.minecraft.entity.passive.CatEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -33,39 +34,40 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(CatEntity.class)
-public abstract class MixinCatEntity {
-
-
+@Mixin(MobEntity.class)
+public class MixinMobEntity {
     private static final int INGESTING_LENGTH = 6000;
     @Unique
     private int ingestingTimer = -1;
 
     @Inject(method = "tick", at = @At("TAIL"))
     public void tick(CallbackInfo ci) {
-        final var this_ = (CatEntity) (Object) this;
+        final var this_ = (MobEntity) (Object) this;
 
         if (ingestingTimer > 0) {
             ingestingTimer--;
         } else if (ingestingTimer == 0) {
             ingestingTimer--;
-            this_.dropStack(new ItemStack(CoffeeModItems.INSTANCE.getCatShitCoffeeBeanItem(), this_.getRandom().nextInt(3) + 1));
+            this_.dropStack(
+                    new ItemStack(
+                            CoffeeModItems.INSTANCE.getShitCoffeeBeanItemByEntityType().get(this_.getType()),
+                            this_.getRandom().nextInt(3) + 1
+                    )
+            );
         }
     }
 
-    @Inject(method = "interactMob", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "interactWithItem", at = @At("HEAD"), cancellable = true)
     public void consumeCocoabean(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.getItem() == Items.COCOA_BEANS && ingestingTimer == -1) {
-            if (!player.getAbilities().creativeMode) {
-                itemStack.decrement(1);
-            }
-
+        final var this_ = (MobEntity) (Object) this;
+        if (itemStack.getItem() == Items.COCOA_BEANS
+                && CoffeeMod.INSTANCE.getSupportedEntityTypes().contains(this_.getType())
+                && ingestingTimer == -1) {
+            itemStack.decrement(1);
             ingestingTimer = INGESTING_LENGTH;
-
-            cir.setReturnValue(ActionResult.SUCCESS);
+            cir.setReturnValue(ActionResult.success(this_.world.isClient));
             cir.cancel();
         }
     }
-
 }

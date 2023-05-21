@@ -78,7 +78,13 @@ public abstract class MixinLivingEntity {
         if (this_.world.isClient)
             return;
 
-        final int tickSpeed = hasStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()) ? getStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()).getAmplifier() : 0;
+        final int buzzEffectFactor = hasStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()) ?
+                getStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()).getAmplifier() + 1 :
+                0;
+
+        final int tickSpeed = buzzEffectFactor + (hasStatusEffect(CoffeeModEffects.INSTANCE.getCatCoffeeEffect()) ?
+                getStatusEffect(CoffeeModEffects.INSTANCE.getCatCoffeeEffect()).getAmplifier() + 1 :
+                0);
 
         for (int i = 0; i < tickSpeed; i++) {
             coffeeCountdown--;

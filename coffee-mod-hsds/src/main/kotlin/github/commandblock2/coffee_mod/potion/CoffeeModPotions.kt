@@ -23,6 +23,7 @@ import github.commandblock2.coffee_mod.CoffeeMod
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
 import github.commandblock2.coffee_mod.item.CoffeeModItems
 import github.commandblock2.lang.interop.util.TriConsumer
+import net.minecraft.entity.EntityType
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.Item
@@ -30,73 +31,84 @@ import net.minecraft.item.Items
 import net.minecraft.potion.Potion
 import net.minecraft.potion.Potions
 import net.minecraft.registry.Registries
-import java.util.*
 
 object CoffeeModPotions {
 
+    private const val REGULAR_DURATION = 20 * 60 * 40
+    private const val REGULAR_HASTE_DURATION = 20 * 60 * 5
+
+    private const val BOOST_DURATION = 20 * 60 * 40
+    private const val BOOST_HASTE_DURATION = 20 * 60 * 5
+
+    private const val PROLONGED_DURATION = 20 * 60 * 40
+    private const val PROLONGED_HASTE_DURATION = 20 * 60 * 5
+
     private val REGULAR_COFFEE_POTION = CoffeeMod.register(
         Registries.POTION, "regular_coffee_potion", Potion(
-            StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, 20 * 60 * 40),
-            StatusEffectInstance(StatusEffects.HASTE, 20 * 60 * 5)
+            StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, REGULAR_DURATION),
+            StatusEffectInstance(StatusEffects.HASTE, REGULAR_HASTE_DURATION)
         )
     )
 
-    private val ENHANCED_COFFEE_POTION = CoffeeMod.register(
-        Registries.POTION, "enhanced_coffee_potion", Potion(
-            StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, 20 * 60 * 30, 1),
-            StatusEffectInstance(StatusEffects.HASTE, 20 * 60 * 5, 1)
+    private val BOOSTED_COFFEE_POTION = CoffeeMod.register(
+        Registries.POTION, "boosted_coffee_potion", Potion(
+            StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, BOOST_DURATION, 1),
+            StatusEffectInstance(StatusEffects.HASTE, BOOST_HASTE_DURATION, 1)
         )
     )
 
     private val PROLONGED_COFFEE_POTION = CoffeeMod.register(
         Registries.POTION, "prolonged_coffee_potion", Potion(
-            StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, 20 * 60 * 60),
-            StatusEffectInstance(StatusEffects.HASTE, 20 * 60 * 10)
+            StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, PROLONGED_DURATION),
+            StatusEffectInstance(StatusEffects.HASTE, PROLONGED_HASTE_DURATION)
         )
     )
 
-    private val CAT_SHIT_COFFEE_POTION = CoffeeMod.register(
-        Registries.POTION, "cat_shit_coffee_potion", Potion(
-            StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, 20 * 60 * 40, 1),
-            StatusEffectInstance(StatusEffects.HASTE, 20 * 60 * 5, 1),
-            StatusEffectInstance(
-                StatusEffects.NAUSEA, 20 * 15, 0, false, true, true,
-                StatusEffectInstance(StatusEffects.NAUSEA, 20 * 15 * 30, 0), Optional.empty()
-            )
-            // How do I actually make this hidden?
-        )
-    )
+    private val specialShitCoffeeBrewingRecipe = CoffeeMod.supportedEntityTypes.map {
 
-    private val ENHANCED_CAT_SHIT_COFFEE_POTION = CoffeeMod.register(
-        Registries.POTION, "enhanced_cat_shit_coffee_potion", Potion(
-            StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, 20 * 60 * 30, 2),
-            StatusEffectInstance(StatusEffects.HASTE, 20 * 60 * 5, 2),
-            StatusEffectInstance(
-                StatusEffects.NAUSEA, 20 * 30, 0, false, true, true,
-                StatusEffectInstance(StatusEffects.NAUSEA, 20 * 15 * 30, 0), Optional.empty()
+        val shitCoffeeRegularPotion = CoffeeMod.register(
+            Registries.POTION,
+            it.untranslatedName + "_shit_coffee_potion", Potion(
+                StatusEffectInstance(CoffeeModEffects.specialEffectByEntityType[it], REGULAR_DURATION),
+                StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, REGULAR_DURATION),
+                StatusEffectInstance(StatusEffects.HASTE, REGULAR_HASTE_DURATION, if (it == EntityType.CAT) 1 else 0)
             )
         )
-    )
-
-    private val PROLONGED_CAT_SHIT_COFFEE_POTION = CoffeeMod.register(
-        Registries.POTION, "prolonged_cat_shit_coffee_potion", Potion(
-            StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, 20 * 60 * 30, 1),
-            StatusEffectInstance(
-                StatusEffects.HASTE, 20 * 60 * 10, 1, false, true, true,
-                StatusEffectInstance(StatusEffects.NAUSEA, 20 * 15 * 30, 0), Optional.empty()
+        val shitCoffeeBoostedPotion = CoffeeMod.register(
+            Registries.POTION,
+            it.untranslatedName + "_shit_coffee_boosted_potion", Potion(
+                StatusEffectInstance(CoffeeModEffects.specialEffectByEntityType[it], BOOST_DURATION),
+                StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, BOOST_DURATION),
+                StatusEffectInstance(StatusEffects.HASTE, BOOST_HASTE_DURATION, if (it == EntityType.CAT) 2 else 1)
             )
-
         )
-    )
+        val shitCoffeeProlongedPotion = CoffeeMod.register(
+            Registries.POTION,
+            it.untranslatedName + "_shit_coffee_prolonged_potion", Potion(
+                StatusEffectInstance(CoffeeModEffects.specialEffectByEntityType[it], PROLONGED_DURATION),
+                StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, PROLONGED_DURATION),
+                StatusEffectInstance(StatusEffects.HASTE, PROLONGED_HASTE_DURATION, if (it == EntityType.CAT) 1 else 0)
+            )
+        )
+
+        val item = CoffeeModItems.shitCoffeeBeanItemByEntityType[it]
+        val triple = Triple(shitCoffeeRegularPotion, shitCoffeeBoostedPotion, shitCoffeeProlongedPotion)
+        Pair(
+            item,
+            triple
+        )
+    }
 
     fun registerPotions(func: TriConsumer<Potion, Item, Potion>) {
         func.accept(Potions.WATER, Items.COCOA_BEANS, REGULAR_COFFEE_POTION)
-        func.accept(REGULAR_COFFEE_POTION, Items.GLOWSTONE_DUST, ENHANCED_COFFEE_POTION)
+        func.accept(REGULAR_COFFEE_POTION, Items.GLOWSTONE_DUST, BOOSTED_COFFEE_POTION)
         func.accept(REGULAR_COFFEE_POTION, Items.REDSTONE, PROLONGED_COFFEE_POTION)
 
-        func.accept(Potions.WATER, CoffeeModItems.CatShitCoffeeBeanItem, CAT_SHIT_COFFEE_POTION)
-        func.accept(CAT_SHIT_COFFEE_POTION, Items.GLOWSTONE_DUST, ENHANCED_CAT_SHIT_COFFEE_POTION)
-        func.accept(CAT_SHIT_COFFEE_POTION, Items.REDSTONE, PROLONGED_CAT_SHIT_COFFEE_POTION)
+        for (brewingRecipe in specialShitCoffeeBrewingRecipe) {
+            func.accept(Potions.WATER, brewingRecipe.first, brewingRecipe.second.first)
+            func.accept(brewingRecipe.second.first, Items.GLOWSTONE_DUST, brewingRecipe.second.second)
+            func.accept(brewingRecipe.second.first, Items.REDSTONE, brewingRecipe.second.third)
+        }
     }
 
 }

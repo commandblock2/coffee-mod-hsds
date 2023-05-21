@@ -27,15 +27,19 @@ import net.minecraft.registry.Registries
 
 object CoffeeModItems {
 
-    val CatShitCoffeeBeanItem = CoffeeMod.register(
-        Registries.ITEM, "cat_shit_coffee_bean",
-        Item(
-            FabricItemSettings()
-                .maxCount(64)
-        )
-    )
+    val shitCoffeeBeanItemByEntityType = CoffeeMod.supportedEntityTypes
+        .associateBy({ it }) {
+            CoffeeMod.register(
+                Registries.ITEM,
+                it.untranslatedName + "_shit_coffee_bean",
+                Item(
+                    FabricItemSettings()
+                        .maxCount(64)
+                )
+            )
+        }
 
     init {
-        CatShitCoffeeBeanItem
+        shitCoffeeBeanItemByEntityType
     }
 }

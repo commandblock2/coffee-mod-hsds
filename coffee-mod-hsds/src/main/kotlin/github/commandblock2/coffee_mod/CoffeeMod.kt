@@ -18,16 +18,18 @@
  */
 
 package github.commandblock2.coffee_mod
+
 import github.commandblock2.coffee_mod.entity.ai.brain.CoffeeModSchedule
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
 import github.commandblock2.coffee_mod.item.CoffeeModItems
 import github.commandblock2.coffee_mod.potion.CoffeeModPotions
 import net.fabricmc.api.ModInitializer
+import net.minecraft.entity.EntityType
 import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
 
 @Suppress("UNUSED")
-object CoffeeMod: ModInitializer {
+object CoffeeMod : ModInitializer {
     const val MOD_ID = "coffee_mod"
     override fun onInitialize() {
         CoffeeModEffects
@@ -35,6 +37,12 @@ object CoffeeMod: ModInitializer {
         CoffeeModPotions
         CoffeeModSchedule
     }
+
+    val supportedEntityTypes = listOf(
+        EntityType.CAT,
+        EntityType.ENDER_DRAGON,
+        EntityType.VILLAGER
+    )
 
     fun <V, T : V?> register(registry: Registry<V>, path: String, entry: T): T {
         return Registry.register(registry, Identifier(MOD_ID, path), entry)

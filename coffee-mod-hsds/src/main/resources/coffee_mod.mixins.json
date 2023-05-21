@@ -7,7 +7,7 @@
   },
   "mixins": [
     "minecraft.entity.MixinLivingEntity",
-    "minecraft.entity.passive.MixinCatEntity",
+    "minecraft.entity.mob.MixinMobEntity",
     "minecraft.entity.passive.MixinVillagerEntity",
     "minecraft.recipe.MixinBrewingRecipeRegistry",
     "minecraft.server.world.MixinSleepManager"
