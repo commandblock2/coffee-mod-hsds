@@ -1,5 +1,5 @@
 /*
- * This file is part of CoffeeMod (https://github.com/commandblock2/CoffeeMod)
+ * This file is part of CoffeeMod (https://github.com/commandblock2/coffee-mod-hsds)
  *
  * Copyright (c) 2023 commandblock2
  *
