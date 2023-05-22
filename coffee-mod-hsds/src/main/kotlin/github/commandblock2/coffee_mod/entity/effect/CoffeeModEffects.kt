@@ -1,5 +1,5 @@
 /*
- * This file is part of CoffeeMod (https://github.com/CCBlueX/CoffeeMod)
+ * This file is part of CoffeeMod (https://github.com/commandblock2/CoffeeMod)
  *
  * Copyright (c) 2023 commandblock2
  *
