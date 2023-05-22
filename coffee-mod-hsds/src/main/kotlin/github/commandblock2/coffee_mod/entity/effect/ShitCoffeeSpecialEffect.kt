@@ -24,7 +24,11 @@ import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectCategory
 import net.minecraft.entity.mob.MobEntity
 import net.minecraft.item.SpawnEggItem
+import net.minecraft.util.math.ColorHelper
 
-class ShitCoffeeSpecialEffect(val entityType: EntityType<out MobEntity>) : StatusEffect(
-    StatusEffectCategory.NEUTRAL, SpawnEggItem.forEntity(entityType)?.getColor(0) ?: 0x0000
+class ShitCoffeeSpecialEffect(entityType: EntityType<out MobEntity>) : StatusEffect(
+    StatusEffectCategory.NEUTRAL, ColorHelper.Argb.mixColor(
+        SpawnEggItem.forEntity(entityType)?.getColor(0) ?: 0x0,
+        SpawnEggItem.forEntity(entityType)?.getColor(1) ?: 0x0
+    )
 )
