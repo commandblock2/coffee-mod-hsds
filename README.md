@@ -23,4 +23,3 @@ Note that cocoa bean is different from coffee bean in reality
 - Texturing
 - Also game play improvement like particles and sound effect
 - Fix the two timers not being saved/loaded
-- Mix the color of coffee and 2 colors from spawn egg
