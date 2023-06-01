@@ -24,3 +24,4 @@ Note that cocoa bean is different from coffee bean in reality
 - Also game play improvement like particles and sound effect
 - Fix the two timers not being saved/loaded
 - Translation
+- Make coffee death timer persistent across reload
