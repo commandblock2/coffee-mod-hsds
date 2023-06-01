@@ -19,11 +19,13 @@
 
 package github.commandblock2.coffee_mod.mixins.minecraft.client;
 
+import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects;
 import github.commandblock2.coffee_mod.networking.CoffeeModNetworking;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.Hand;
@@ -36,12 +38,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftClient.class)
 public class MixinMinecraftClient {
-    @Shadow @Nullable public ClientPlayerEntity player;
+    @Shadow
+    @Nullable
+    public ClientPlayerEntity player;
 
     @Inject(method = "doItemUse", at = @At("TAIL"))
     private void doItemUse(CallbackInfo ci) {
         ItemStack itemStack = player.getStackInHand(Hand.MAIN_HAND);
-        if (itemStack.isEmpty())
+        if (itemStack.isEmpty()
+                && player.hasStatusEffect(
+                CoffeeModEffects.INSTANCE
+                        .getSpecialEffectByEntityType()
+                        .get(EntityType.ENDER_DRAGON)
+        )
+        )
             ClientPlayNetworking.send(CoffeeModNetworking.INSTANCE.getFireballRequestID(), new PacketByteBuf(Unpooled.buffer()));
     }
 }

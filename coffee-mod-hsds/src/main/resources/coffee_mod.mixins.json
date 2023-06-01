@@ -13,6 +13,8 @@
     "minecraft.server.world.MixinSleepManager"
   ],
   "client": [
-    "minecraft.client.MixinMinecraftClient"
+    "minecraft.client.MixinMinecraftClient",
+    "minecraft.client.render.entity.MixinPlayerEntityRenderer",
+    "minecraft.client.render.entity.model.MixinEntityModelLoader"
   ]
 }
