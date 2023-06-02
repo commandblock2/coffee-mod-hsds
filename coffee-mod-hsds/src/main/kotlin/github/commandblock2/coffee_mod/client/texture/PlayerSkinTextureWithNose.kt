@@ -52,10 +52,11 @@ object PlayerSkinTextureWithNose {
         val texture = textureManager.getTexture(playerSkinIdentifier)
 
         val skinImage =
-            if (playerSkinResource.isEmpty && nativeImageCache.containsKey(texture))
-                nativeImageCache[texture]!!
-            else if (!nativeImageCache.containsKey(texture)) {
-                return playerSkinIdentifier
+            if (playerSkinResource.isEmpty) {
+                if (nativeImageCache.containsKey(texture))
+                    nativeImageCache[texture]!!
+                else
+                    return playerSkinIdentifier
             } else
                 NativeImage.read(playerSkinResource.get().inputStream)
 
