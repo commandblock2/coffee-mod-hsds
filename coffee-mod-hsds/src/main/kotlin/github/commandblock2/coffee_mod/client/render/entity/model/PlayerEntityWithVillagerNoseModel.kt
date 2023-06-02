@@ -38,12 +38,9 @@ class PlayerEntityWithVillagerNoseModel<T : LivingEntity>(
             val headData = modelData.root.getChild(EntityModelPartNames.HEAD)
 
 
-            // TODO: Steal the texture of the nose of the villager
-            // TODO: Decide if the texture of the player skin should be baked with a extra step with something from villager
-            // TODO: Or idk there might be a better solution?
             headData.addChild(
                 EntityModelPartNames.NOSE,
-                ModelPartBuilder.create().uv(24, 0).cuboid(-1.0f, -1.0f, -6.0f, 2.0f, 4.0f, 2.0f),
+                ModelPartBuilder.create().uv(0, 0).cuboid(-1.0f, -1.0f, -6.0f, 2.0f, 4.0f, 2.0f),
                 ModelTransform.pivot(0.0f, -2.0f, 0.0f)
             )
 

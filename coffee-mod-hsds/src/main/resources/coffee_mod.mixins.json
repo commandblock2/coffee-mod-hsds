@@ -14,6 +14,7 @@
   ],
   "client": [
     "minecraft.client.MixinMinecraftClient",
+    "minecraft.client.network.MixinAbstractClientPlayerEntity",
     "minecraft.client.render.entity.MixinPlayerEntityRenderer",
     "minecraft.client.render.entity.model.MixinEntityModelLoader"
   ]
