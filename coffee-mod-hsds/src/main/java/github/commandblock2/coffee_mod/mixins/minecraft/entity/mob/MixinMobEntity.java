@@ -66,7 +66,7 @@ public class MixinMobEntity {
                 && ingestingTimer == -1) {
             itemStack.decrement(1);
             ingestingTimer = INGESTING_LENGTH;
-            cir.setReturnValue(ActionResult.success(this_.world.isClient));
+            cir.setReturnValue(ActionResult.success(this_.getWorld().isClient));
             cir.cancel();
         }
     }

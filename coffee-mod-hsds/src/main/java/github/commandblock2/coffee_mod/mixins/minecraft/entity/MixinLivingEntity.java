@@ -75,7 +75,7 @@ public abstract class MixinLivingEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
         final var this_ = (LivingEntity) (Object) this;
-        if (this_.world.isClient)
+        if (this_.getWorld().isClient)
             return;
 
         final int buzzEffectFactor = hasStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()) ?
@@ -103,7 +103,7 @@ public abstract class MixinLivingEntity {
     @Inject(method = "onStatusEffectRemoved", at = @At("HEAD"))
     private void onStatusEffectRemoved(StatusEffectInstance effect, CallbackInfo ci) {
         final var this_ = (LivingEntity) (Object) this;
-        if (effect.getEffectType() == CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect() && !this_.world.isClient) {
+        if (effect.getEffectType() == CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect() && !this_.getWorld().isClient) {
             coffeeCountdown = COFFEE_SAFE_TICKS;
         }
 
