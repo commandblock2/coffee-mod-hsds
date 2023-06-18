@@ -1,0 +1,5 @@
+{
+  "base.item.${mod_id}.shit_coffee_bean": "%s Shit Coffee Bean",
+  "effect.${mod_id}.coffee_buzz": "Coffee Buzz",
+  "base.effect.${mod_id}.effect_name": "%s Shit Coffee Buzz"
+}

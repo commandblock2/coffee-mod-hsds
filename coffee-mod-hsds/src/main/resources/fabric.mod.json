@@ -13,13 +13,19 @@
     "sources": "https://github.com/commandblock2/coffee-mod-hsds"
   },
   "license": "GNU General Public License v3.0",
-  "icon": "assets/coffee_mod/icon.png",
+  "icon": "assets/${mod_id}/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
       {
         "adapter": "kotlin",
         "value": "github.commandblock2.coffee_mod.CoffeeMod"
+      }
+    ],
+    "fabric-datagen": [
+      {
+        "adapter": "kotlin",
+        "value": "github.commandblock2.coffee_mod.datagen.DataGeneration"
       }
     ]
   },
@@ -30,8 +36,8 @@
     "fabricloader": "*",
     "fabric-api": "*",
     "fabric-language-kotlin": "*",
-    "minecraft": "~1.20.1",
-    "java": ">=17"
+    "minecraft": "~${minecraft}",
+    "java": ">=${java}"
   },
   "accessWidener": "coffee_mod.accesswidener"
 }

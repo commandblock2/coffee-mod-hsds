@@ -8,20 +8,31 @@ base { archivesName.set(project.extra["archives_base_name"] as String) }
 version = project.extra["mod_version"] as String
 group = project.extra["maven_group"] as String
 
+
+val generatedPath = "src/main/generated"
+
 loom {
     accessWidenerPath.set(file("src/main/resources/coffee_mod.accesswidener"))
 
-    val datagen by tasks.registering {
-        group = "runs"
-        description = "Data Generation"
-
-        systemProperty("fabric-api.datagen", "true")
-        systemProperty("fabric-api.datagen.output-dir", file("src/main/generated").absolutePath)
-        systemProperty("fabric-api.datagen.modid", project.extra["mod_id"] as String)
-    }
-
     runs {
-        datagen
+        create("datagen") {
+            client()
+            name("Data Generation")
+            vmArgs(
+                "-Dfabric-api.datagen",
+                "-Dfabric-api.datagen.output-dir=${file(generatedPath)}",
+                "-Dfabric-api.datagen.modid=${project.extra["mod_id"] as String}"
+            )
+            runDir("build/datagen")
+        }
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir(generatedPath)
+        }
     }
 }
 
@@ -61,6 +72,13 @@ tasks {
                 )
             )
         }
+        filesMatching("assets/${project.extra["mod_id"]}/lang/*.pattern.json") {
+            expand(
+                mutableMapOf(
+                    "mod_id" to project.extra["mod_id"] as String
+                )
+            )
+        }
         filesMatching("*.mixins.json") { expand(mutableMapOf("java" to project.extra["java_version"] as String)) }
     }
     java {
@@ -70,4 +88,4 @@ tasks {
         withSourcesJar()
     }
 }
-sourceSets { main { resources { srcDirs.add(file("src/main/generated")) } } }
+

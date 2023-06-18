@@ -31,7 +31,7 @@ object CoffeeModEffects {
     private fun registerShitCoffeeSpecialEffect(entityType: EntityType<out MobEntity>): ShitCoffeeSpecialEffect {
         val effect = ShitCoffeeSpecialEffect(entityType)
         CoffeeMod.register(
-            Registries.STATUS_EFFECT, entityType.untranslatedName + "_coffee_effect",
+            Registries.STATUS_EFFECT, entityType.untranslatedName + "_coffee_buzz",
             effect
         )
         return effect
