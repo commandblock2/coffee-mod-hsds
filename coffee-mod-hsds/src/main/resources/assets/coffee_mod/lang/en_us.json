@@ -1,0 +1,5 @@
+{
+  "wildcard.item.${mod_id}.%s_shit_coffee_bean": "%s Shit Coffee Bean",
+  "effect.${mod_id}.coffee_buzz": "Coffee Buzz",
+  "wildcard.effect.${mod_id}.%s_coffee_buzz": "%s Shit Coffee Buzz"
+}

@@ -19,19 +19,15 @@
 
 package github.commandblock2.coffee_mod.datagen
 
-import github.commandblock2.coffee_mod.datagen.lang.DefaultLangProvider
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 
 @Suppress("unused")
 object DataGeneration : DataGeneratorEntrypoint {
     override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator?) {
         val pack = fabricDataGenerator!!.createPack()
 
-        // TODO: make it idk wtf
-        pack.addProvider { dataOutput: FabricDataOutput ->
-            DefaultLangProvider(dataOutput, "en_us")
-        }
+
     }
+
 }

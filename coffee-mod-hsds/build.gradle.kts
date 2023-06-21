@@ -72,7 +72,7 @@ tasks {
                 )
             )
         }
-        filesMatching("assets/${project.extra["mod_id"]}/lang/*.pattern.json") {
+        filesMatching("assets/${project.extra["mod_id"]}/lang/*.json") {
             expand(
                 mutableMapOf(
                     "mod_id" to project.extra["mod_id"] as String
@@ -80,6 +80,23 @@ tasks {
             )
         }
         filesMatching("*.mixins.json") { expand(mutableMapOf("java" to project.extra["java_version"] as String)) }
+
+        val inputDirectory = project.file("src/main/resources/assets/${project.extra["mod_id"]}/lang/")
+        val outputFile = project.file("src/main/resources/assets/${project.extra["mod_id"]}/lang/langs.txt")
+
+        doLast {
+            // Get all files under the input directory recursively
+            val files = inputDirectory.walkTopDown().filter { it.isFile }.toList()
+
+            outputFile.createNewFile()
+            // Write file names to the output file
+            outputFile.bufferedWriter().use { writer ->
+                files.forEach { file ->
+                    writer.write(file.name)
+                    writer.newLine()
+                }
+            }
+        }
     }
     java {
         toolchain { languageVersion.set(JavaLanguageVersion.of(javaVersion.toString())) }

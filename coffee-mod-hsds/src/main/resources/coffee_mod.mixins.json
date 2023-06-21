@@ -17,6 +17,7 @@
     "minecraft.client.network.MixinAbstractClientPlayerEntity",
     "minecraft.client.render.entity.MixinPlayerEntityRenderer",
     "minecraft.client.render.entity.model.MixinEntityModelLoader",
+    "minecraft.client.resource.language.MixinTranslationStorage",
     "minecraft.client.texture.MixinPlayerSkinTexture"
   ]
 }

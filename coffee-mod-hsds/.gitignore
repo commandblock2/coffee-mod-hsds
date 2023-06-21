@@ -39,3 +39,4 @@ replay_*.log
 *.hprof
 *.jfr
 /src/main/generated/
+/src/main/resources/assets/coffee_mod/lang/langs.txt

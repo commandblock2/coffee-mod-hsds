@@ -24,6 +24,7 @@ import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
 import github.commandblock2.coffee_mod.item.CoffeeModItems
 import github.commandblock2.coffee_mod.networking.CoffeeModNetworking
 import github.commandblock2.coffee_mod.potion.CoffeeModPotions
+import github.commandblock2.coffee_mod.resource.CoffeeModCustomResourceLoader
 import net.fabricmc.api.ModInitializer
 import net.minecraft.entity.EntityType
 import net.minecraft.registry.Registry
@@ -38,6 +39,7 @@ object CoffeeMod : ModInitializer {
         CoffeeModPotions
         CoffeeModSchedule
         CoffeeModNetworking
+        CoffeeModCustomResourceLoader
     }
 
     val supportedEntityTypes = listOf(

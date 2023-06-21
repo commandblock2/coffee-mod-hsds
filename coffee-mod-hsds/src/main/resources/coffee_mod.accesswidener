@@ -3,3 +3,5 @@ accessible method net/minecraft/entity/ai/brain/Schedule register (Ljava/lang/St
 accessible field net/minecraft/client/render/entity/model/EntityModelLoader modelParts Ljava/util/Map;
 accessible field net/minecraft/client/render/entity/LivingEntityRenderer model Lnet/minecraft/client/render/entity/model/EntityModel;
 accessible field net/minecraft/client/render/entity/VillagerEntityRenderer TEXTURE Lnet/minecraft/util/Identifier;
+mutable field net/minecraft/client/resource/language/TranslationStorage translations Ljava/util/Map;
+accessible field net/minecraft/client/resource/language/TranslationStorage translations Ljava/util/Map;
