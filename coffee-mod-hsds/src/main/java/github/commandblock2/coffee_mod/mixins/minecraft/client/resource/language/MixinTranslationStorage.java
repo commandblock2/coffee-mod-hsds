@@ -41,7 +41,7 @@ public class MixinTranslationStorage {
                             String key = translationKey
                                     .replace("wildcard.", "")
                                     .formatted(entityType.getUntranslatedName());
-                            String value = coffeeModTranslations.get(translationKey).getAsString()
+                            String value = coffeeModTranslations.get(translationKey)
                                     .formatted(translationStorage.translations.get(entityType.getTranslationKey()));
                             return Map.entry(key, value);
                         }))
