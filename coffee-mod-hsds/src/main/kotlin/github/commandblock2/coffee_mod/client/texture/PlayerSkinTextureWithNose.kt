@@ -66,7 +66,6 @@ object PlayerSkinTextureWithNose {
         val villagerImage = NativeImage.read(resourceManager.getResource(villagerTextureIdentifier).get().inputStream)
 
         val playerSkinImageWithNose = NativeImage(skinImage.format, skinImage.width, skinImage.height, false)
-        println("skinImage.format:${skinImage.format}")
         playerSkinImageWithNose.copyFrom(skinImage)
 
         // net/minecraft/client/render/entity/model/VillagerResemblingModel.java:91 for (24, 0)
