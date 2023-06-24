@@ -20,13 +20,13 @@
 package github.commandblock2.coffee_mod.entity.effect
 
 import net.minecraft.entity.EntityType
+import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectCategory
-import net.minecraft.entity.mob.MobEntity
 import net.minecraft.item.SpawnEggItem
 import net.minecraft.util.math.ColorHelper
 
-class ShitCoffeeSpecialEffect(entityType: EntityType<out MobEntity>) : StatusEffect(
+class ShitCoffeeSpecialEffect(entityType: EntityType<out LivingEntity>) : StatusEffect(
     StatusEffectCategory.NEUTRAL, ColorHelper.Argb.mixColor(
         SpawnEggItem.forEntity(entityType)?.getColor(0) ?: 0x0,
         SpawnEggItem.forEntity(entityType)?.getColor(1) ?: 0x0

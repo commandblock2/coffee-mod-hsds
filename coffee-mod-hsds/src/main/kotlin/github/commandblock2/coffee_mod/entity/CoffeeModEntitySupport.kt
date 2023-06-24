@@ -26,8 +26,8 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents
 import net.fabricmc.fabric.api.event.player.UseEntityCallback
+import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.boss.dragon.EnderDragonPart
-import net.minecraft.entity.mob.MobEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.NbtCompound
@@ -41,7 +41,7 @@ import java.util.*
 object CoffeeModEntitySupport {
 
     private const val COFFEE_BEAN_TIMER_LENGTH = 6000
-    val coffeeBeanTimers: MutableMap<MobEntity, Int> = mutableMapOf()
+    val coffeeBeanTimers: MutableMap<LivingEntity, Int> = mutableMapOf()
 
     init {
         CoffeeModSchedule
@@ -53,8 +53,9 @@ object CoffeeModEntitySupport {
                 if (entityCouldBeEnderDragonPart is EnderDragonPart) entityCouldBeEnderDragonPart.owner else entityCouldBeEnderDragonPart
 
 
+
             if (hand != Hand.MAIN_HAND ||
-                entity !is MobEntity ||
+                entity !is LivingEntity ||
                 !CoffeeMod.supportedEntityTypes.contains(entity.type)
             ) {
                 return@register ActionResult.PASS
@@ -67,14 +68,14 @@ object CoffeeModEntitySupport {
                 if (!player.isCreative)
                     itemStack.decrement(1)
 
-                return@register ActionResult.SUCCESS
+                return@register ActionResult.success(entity.world.isClient)
             }
 
             ActionResult.PASS
         }
 
 
-        ServerTickEvents.START_SERVER_TICK.register {
+        ServerTickEvents.END_SERVER_TICK.register {
 
             for (entity in coffeeBeanTimers.keys) {
                 val timer = coffeeBeanTimers[entity] ?: continue
@@ -89,6 +90,7 @@ object CoffeeModEntitySupport {
                             entity.random.nextInt(3) + 1
                         )
                     )
+
 
             }
 
@@ -113,7 +115,7 @@ object CoffeeModEntitySupport {
                                         nbtCompound
                                             .getString("entityId")!!
                                     )
-                                ) as MobEntity
+                                ) as LivingEntity
                             }) {
                                 (it as NbtCompound).getInt("coffeeBean")
                             }
@@ -133,10 +135,13 @@ object CoffeeModEntitySupport {
         }
     }
 
-    private fun startIngesting(entity: MobEntity): Boolean {
+    private fun startIngesting(entity: LivingEntity): Boolean {
         if (coffeeBeanTimers.containsKey(entity)) {
             return false
         }
+
+        if (entity.world.isClient)
+            return true
 
         coffeeBeanTimers[entity] = COFFEE_BEAN_TIMER_LENGTH
         return true

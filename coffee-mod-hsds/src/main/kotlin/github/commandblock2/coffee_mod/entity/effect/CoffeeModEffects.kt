@@ -21,14 +21,14 @@ package github.commandblock2.coffee_mod.entity.effect
 
 import github.commandblock2.coffee_mod.CoffeeMod
 import net.minecraft.entity.EntityType
-import net.minecraft.entity.mob.MobEntity
+import net.minecraft.entity.LivingEntity
 import net.minecraft.registry.Registries
 
 object CoffeeModEffects {
     val coffeeBuzzStatusEffect = CoffeeBuzzStatusEffect()
 
     val specialEffectByEntityType = CoffeeMod.supportedEntityTypes.associateBy({ it }) { registerShitCoffeeSpecialEffect(it) }
-    private fun registerShitCoffeeSpecialEffect(entityType: EntityType<out MobEntity>): ShitCoffeeSpecialEffect {
+    private fun registerShitCoffeeSpecialEffect(entityType: EntityType<out LivingEntity>): ShitCoffeeSpecialEffect {
         val effect = ShitCoffeeSpecialEffect(entityType)
         CoffeeMod.register(
             Registries.STATUS_EFFECT, entityType.untranslatedName + "_coffee_buzz",
