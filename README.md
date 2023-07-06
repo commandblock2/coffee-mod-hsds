@@ -6,7 +6,7 @@ A fabric implementation of the coffee mod, idea by hsds. The link of the video h
 - Consuming coffee gives a potion effect (Coffee Buzz) which
   1. [x] exempts you from phantoms
   2. [x] prevents night skipping when trying to sleep
-  3. [WIP] may cause sudden death when certain amount of time has passed
+  3. [x] may cause sudden death when certain amount of time has passed
   4. [x] prevents villagers from sleeping and reproducing
 
 - [x] Feeding cat with cocoa bean may produce `Kopi Luwak Bean (Cat Shit Coffee Bean)`(with boosted effect) 
@@ -22,5 +22,4 @@ Note that cocoa bean is different from coffee bean in reality
 - Finish advancements and rewrite previous section according to advancements
 - Texturing
 - Also game play improvement like particles and sound effect
-- Fix the two timers not being saved/loaded
 - Translation

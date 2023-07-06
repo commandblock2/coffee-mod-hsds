@@ -25,5 +25,6 @@
   "wildcard.item.minecraft.splash_potion.effect.%s_shit_coffee_boosted_potion": "喷溅型%s屎浓缩咖啡",
   "wildcard.item.minecraft.splash_potion.effect.%s_shit_coffee_prolonged_potion": "喷溅型%s屎淡味咖啡",
   "wildcard.item.minecraft.lingering_potion.effect.%s_shit_coffee_boosted_potion": "滞留型%s屎浓缩咖啡",
-  "wildcard.item.minecraft.lingering_potion.effect.%s_shit_coffee_prolonged_potion": "滞留型%s屎淡味咖啡"
+  "wildcard.item.minecraft.lingering_potion.effect.%s_shit_coffee_prolonged_potion": "滞留型%s屎淡味咖啡",
+  "death.${mod_id}.overdose": "%s咖啡喝太多猝死了"
 }

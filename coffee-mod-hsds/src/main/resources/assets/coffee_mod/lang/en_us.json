@@ -25,5 +25,6 @@
   "wildcard.item.minecraft.lingering_potion.effect.%s_shit_coffee_boosted_potion" :  "Concentrated Lingering %s Shit Coffee",
   "wildcard.item.minecraft.lingering_potion.effect.%s_shit_coffee_prolonged_potion" :  "Mild Lingering %s Shit Coffee",
   "effect.${mod_id}.coffee_buzz": "Coffee Buzz",
-  "wildcard.effect.${mod_id}.%s_coffee_buzz": "%s Shit Coffee Buzz"
+  "wildcard.effect.${mod_id}.%s_coffee_buzz": "%s Shit Coffee Buzz",
+  "death.${mod_id}.overdose": "%s drank too much coffee"
 }

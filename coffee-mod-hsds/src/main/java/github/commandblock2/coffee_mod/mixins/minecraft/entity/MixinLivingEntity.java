@@ -40,21 +40,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class MixinLivingEntity {
-
-    @Shadow public abstract Random getRandom();
-
-    @Shadow public abstract void kill();
-
-    @Shadow public abstract boolean hasStatusEffect(StatusEffect effect);
-
-    @Shadow public abstract @Nullable StatusEffectInstance getStatusEffect(StatusEffect effect);
-
-    @Unique
-    static private final long COFFEE_SAFE_TICKS = 20 * 60 * 30;
-
-    @Unique
-    private long coffeeCountdown;
-
     @Inject(method = "isTarget", at = @At("RETURN"), cancellable = true)
     private void exemptPlayersWithCoffeeEffect(LivingEntity entity, TargetPredicate predicate, CallbackInfoReturnable<Boolean> info) {
         final var this_ = (LivingEntity) (Object) this;
@@ -65,47 +50,5 @@ public abstract class MixinLivingEntity {
             info.setReturnValue(false);
             ((PhantomEntity) this_).setTarget(null);
         }
-    }
-
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(EntityType entityType, World world, CallbackInfo ci) {
-        coffeeCountdown = COFFEE_SAFE_TICKS;
-    }
-
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void tick(CallbackInfo ci) {
-        final var this_ = (LivingEntity) (Object) this;
-        if (this_.getWorld().isClient)
-            return;
-
-        final int buzzEffectFactor = hasStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()) ?
-                getStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()).getAmplifier() + 1 :
-                0;
-
-        final int tickSpeed = buzzEffectFactor + (hasStatusEffect(CoffeeModEffects.INSTANCE.getCatCoffeeEffect()) ?
-                getStatusEffect(CoffeeModEffects.INSTANCE.getCatCoffeeEffect()).getAmplifier() + 1 :
-                0);
-
-        for (int i = 0; i < tickSpeed; i++) {
-            coffeeCountdown--;
-            if (coffeeCountdown < 0 && coffeeCountdown % 20 + 19 == this_.getId() % 20) {
-                // 1 / 2 death expectation at 30 min
-                final var secs = 15 * 60;
-                final var oneOverDeathRate = secs * secs;
-
-                if (coffeeCountdown / -20 > getRandom().nextInt(oneOverDeathRate)) {
-                    this.kill();
-                }
-            }
-        }
-    }
-
-    @Inject(method = "onStatusEffectRemoved", at = @At("HEAD"))
-    private void onStatusEffectRemoved(StatusEffectInstance effect, CallbackInfo ci) {
-        final var this_ = (LivingEntity) (Object) this;
-        if (effect.getEffectType() == CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect() && !this_.getWorld().isClient) {
-            coffeeCountdown = COFFEE_SAFE_TICKS;
-        }
-
     }
 }

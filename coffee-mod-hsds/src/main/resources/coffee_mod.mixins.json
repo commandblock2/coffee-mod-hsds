@@ -9,6 +9,7 @@
     "minecraft.entity.MixinLivingEntity",
     "minecraft.entity.passive.MixinVillagerEntity",
     "minecraft.recipe.MixinBrewingRecipeRegistry",
+    "minecraft.server.network.MixinServerPlayerEntity",
     "minecraft.server.world.MixinSleepManager"
   ],
   "client": [

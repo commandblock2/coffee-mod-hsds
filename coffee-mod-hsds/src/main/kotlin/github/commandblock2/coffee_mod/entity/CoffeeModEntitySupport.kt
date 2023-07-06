@@ -21,6 +21,7 @@ package github.commandblock2.coffee_mod.entity
 
 import github.commandblock2.coffee_mod.CoffeeMod
 import github.commandblock2.coffee_mod.entity.ai.brain.CoffeeModSchedule
+import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
 import github.commandblock2.coffee_mod.item.CoffeeModItems
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
@@ -32,16 +33,23 @@ import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtList
+import net.minecraft.server.MinecraftServer
+import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.ActionResult
 import net.minecraft.util.Hand
 import net.minecraft.world.PersistentState
 import net.minecraft.world.World
 import java.util.*
+import kotlin.math.abs
 
 object CoffeeModEntitySupport {
 
     private const val COFFEE_BEAN_TIMER_LENGTH = 6000
     val coffeeBeanTimers: MutableMap<LivingEntity, Int> = mutableMapOf()
+    val coffeeDeathList: MutableSet<ServerPlayerEntity> = mutableSetOf()
+
+    private const val COFFEE_SAFE_TICKS = 20L * 60 * 30
+    val suddenDeathCountdown: MutableMap<LivingEntity, Long> = mutableMapOf()
 
     init {
         CoffeeModSchedule
@@ -75,52 +83,16 @@ object CoffeeModEntitySupport {
         }
 
 
-        ServerTickEvents.END_SERVER_TICK.register {
-
-            for (entity in coffeeBeanTimers.keys) {
-                val timer = coffeeBeanTimers[entity] ?: continue
-
-                if (timer > 0)
-                    coffeeBeanTimers[entity] = timer - 1
-
-                if (timer - 1 == 0)
-                    entity.dropStack(
-                        ItemStack(
-                            CoffeeModItems.shitCoffeeBeanItemByEntityType[entity.type],
-                            entity.random.nextInt(3) + 1
-                        )
-                    )
-
-
-            }
-
-            coffeeBeanTimers.keys.removeIf {
-                coffeeBeanTimers[it] == 0
-            }
+        ServerTickEvents.START_SERVER_TICK.register {
+            processCoffeeBeanTick()
+            processCoffeeDeathTick()
         }
 
         ServerLifecycleEvents.SERVER_STARTED.register { server ->
             val storage = server.getWorld(World.OVERWORLD)!!.persistentStateManager.getOrCreate(
                 { nbt ->
-                    coffeeBeanTimers.clear()
-
-                    coffeeBeanTimers.putAll(
-
-                        (nbt.get("timers")
-                                as NbtList)
-                            .associateBy({
-                                val nbtCompound = (it as NbtCompound)
-                                server.worlds.toList()[nbtCompound.getInt("dimension")].getEntity(
-                                    UUID.fromString(
-                                        nbtCompound
-                                            .getString("entityId")!!
-                                    )
-                                ) as LivingEntity
-                            }) {
-                                (it as NbtCompound).getInt("coffeeBean")
-                            }
-
-                    )
+                    loadCoffeeBeanTickFromNBT(nbt, server)
+                    loadCoffeeDeathTickFromNBT(nbt, server)
                     PersistentStorage()
                 },
                 {
@@ -135,6 +107,95 @@ object CoffeeModEntitySupport {
         }
     }
 
+    private fun processCoffeeDeathTick() {
+        for (entity in suddenDeathCountdown.keys) {
+            val effectLevel = entity.getStatusEffect(CoffeeModEffects.coffeeBuzzStatusEffect)!!.amplifier + 1
+            val tickSpeed = effectLevel + if (entity.hasStatusEffect(CoffeeModEffects.catCoffeeEffect)) 1 else 0
+
+            repeat(tickSpeed) {
+                val coffeeCountdown = suddenDeathCountdown[entity]!! - 1
+                suddenDeathCountdown[entity] = coffeeCountdown
+
+                if (coffeeCountdown < 0 && (abs(coffeeCountdown) % 20).toInt() == entity.id % 20) {
+                    val secs = 15 * 60
+                    val oneOverDeathRate = secs * secs
+
+                    if (coffeeCountdown / -20 > entity.random.nextInt(oneOverDeathRate) && !entity.isDead) {
+                        if (entity is ServerPlayerEntity)
+                            coffeeDeathList.add(entity)
+                        entity.kill()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun loadCoffeeBeanTickFromNBT(nbt: NbtCompound, server: MinecraftServer) {
+        coffeeBeanTimers.clear()
+
+        coffeeBeanTimers.putAll(
+
+            (nbt.get("beanTimers")
+                    as NbtList)
+                .associateBy({
+                    val nbtCompound = (it as NbtCompound)
+                    server.worlds.toList()[nbtCompound.getInt("dimension")].getEntity(
+                        UUID.fromString(
+                            nbtCompound
+                                .getString("entityId")!!
+                        )
+                    ) as LivingEntity
+                }) {
+                    (it as NbtCompound).getInt("coffeeBean")
+                }
+
+        )
+    }
+
+
+    private fun loadCoffeeDeathTickFromNBT(nbt: NbtCompound, server: MinecraftServer) {
+        suddenDeathCountdown.clear()
+
+        suddenDeathCountdown.putAll(
+
+            (nbt.get("deathTimers")
+                    as NbtList)
+                .associateBy({
+                    val nbtCompound = (it as NbtCompound)
+                    server.worlds.toList()[nbtCompound.getInt("dimension")].getEntity(
+                        UUID.fromString(
+                            nbtCompound
+                                .getString("entityId")!!
+                        )
+                    ) as LivingEntity
+                }) {
+                    (it as NbtCompound).getLong("death")
+                }
+
+        )
+    }
+
+    private fun processCoffeeBeanTick() {
+        for (entity in coffeeBeanTimers.keys) {
+            val timer = coffeeBeanTimers[entity] ?: continue
+
+            if (timer > 0)
+                coffeeBeanTimers[entity] = timer - 1
+
+            if (timer - 1 == 0)
+                entity.dropStack(
+                    ItemStack(
+                        CoffeeModItems.shitCoffeeBeanItemByEntityType[entity.type],
+                        entity.random.nextInt(3) + 1
+                    )
+                )
+        }
+
+        coffeeBeanTimers.keys.removeIf {
+            coffeeBeanTimers[it] == 0
+        }
+    }
+
     private fun startIngesting(entity: LivingEntity): Boolean {
         if (coffeeBeanTimers.containsKey(entity)) {
             return false
@@ -146,13 +207,21 @@ object CoffeeModEntitySupport {
         coffeeBeanTimers[entity] = COFFEE_BEAN_TIMER_LENGTH
         return true
     }
+
+    fun addToCoffeeDeathTracker(entity: LivingEntity) {
+        suddenDeathCountdown[entity] = COFFEE_SAFE_TICKS
+    }
+
+    fun removeEntityFromDeathTracker(entity: LivingEntity) {
+        suddenDeathCountdown.remove(entity)
+    }
 }
 
 class PersistentStorage : PersistentState() {
 
     override fun writeNbt(nbt: NbtCompound?): NbtCompound {
 
-        val timers = CoffeeModEntitySupport.coffeeBeanTimers.map { (entity, value) ->
+        val beanTimers = CoffeeModEntitySupport.coffeeBeanTimers.map { (entity, value) ->
             val entryTag = NbtCompound()
             entryTag.putString("entityId", entity.uuidAsString)
             entryTag.putInt("dimension", entity.server!!.worlds.indexOf(entity.world))
@@ -160,7 +229,17 @@ class PersistentStorage : PersistentState() {
             entryTag
         }.toCollection(NbtList())
 
-        nbt!!.put("timers", timers)
+        nbt!!.put("beanTimers", beanTimers)
+
+        val deathTimers = CoffeeModEntitySupport.suddenDeathCountdown.map { (entity, value) ->
+            val entryTag = NbtCompound()
+            entryTag.putString("entityId", entity.uuidAsString)
+            entryTag.putInt("dimension", entity.server!!.worlds.indexOf(entity.world))
+            entryTag.putLong("death", value)
+            entryTag
+        }.toCollection(NbtList())
+
+        nbt.put("deathTimers", deathTimers)
 
         return nbt
     }

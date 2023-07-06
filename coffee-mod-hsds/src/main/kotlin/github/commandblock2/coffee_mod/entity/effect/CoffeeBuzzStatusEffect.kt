@@ -21,6 +21,7 @@ package github.commandblock2.coffee_mod.entity.effect
 
 import com.google.common.collect.ImmutableSet
 import com.mojang.datafixers.util.Pair
+import github.commandblock2.coffee_mod.entity.CoffeeModEntitySupport
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.ai.brain.Activity
 import net.minecraft.entity.ai.brain.MemoryModuleState
@@ -41,6 +42,9 @@ class CoffeeBuzzStatusEffect : StatusEffect(StatusEffectCategory.NEUTRAL, 0x6c4c
 
     override fun onApplied(entity: LivingEntity?, attributes: AttributeContainer?, amplifier: Int) {
         super.onApplied(entity, attributes, amplifier)
+        if (entity != null) {
+            CoffeeModEntitySupport.addToCoffeeDeathTracker(entity)
+        }
         if (entity is VillagerEntity && entity.world is ServerWorld) {
             entity.reinitializeBrain(entity.world as ServerWorld)
         }
@@ -52,6 +56,8 @@ class CoffeeBuzzStatusEffect : StatusEffect(StatusEffectCategory.NEUTRAL, 0x6c4c
         val world = entity.entityWorld
         if (world is ServerWorld)
             world.updateSleepingPlayers()
+
+        CoffeeModEntitySupport.removeEntityFromDeathTracker(entity)
 
         if (entity is VillagerEntity) {
             val villagerProfession: VillagerProfession = entity.villagerData.profession
