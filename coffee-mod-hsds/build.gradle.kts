@@ -36,7 +36,10 @@ sourceSets {
     }
 }
 
-repositories {}
+repositories {
+    maven("https://maven.wispforest.io")
+    // hope that there won't be a dependency injection attack someday
+}
 dependencies {
     minecraft("com.mojang", "minecraft", project.extra["minecraft_version"] as String)
     mappings("net.fabricmc", "yarn", project.extra["yarn_mappings"] as String, null, "v2")
@@ -47,6 +50,10 @@ dependencies {
         "fabric-language-kotlin",
         project.extra["fabric_language_kotlin_version"] as String
     )
+
+    modImplementation("io.wispforest", "owo-lib", project.extra["owo_version"] as String)
+    annotationProcessor("io.wispforest", "owo-lib", project.extra["owo_version"] as String)
+    include("io.wispforest", "owo-sentinel", project.extra["owo_version"] as String)
 }
 tasks {
     val javaVersion = JavaVersion.toVersion((project.extra["java_version"] as String).toInt())
