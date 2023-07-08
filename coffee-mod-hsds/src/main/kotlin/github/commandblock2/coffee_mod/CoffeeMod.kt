@@ -19,25 +19,24 @@
 
 package github.commandblock2.coffee_mod
 
+import github.commandblock2.coffee_mod.config.CoffeeModConfigSomething
 import github.commandblock2.coffee_mod.entity.CoffeeModEntitySupport
-import github.commandblock2.coffee_mod.entity.ai.brain.CoffeeModSchedule
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
 import github.commandblock2.coffee_mod.item.CoffeeModItems
 import github.commandblock2.coffee_mod.networking.CoffeeModNetworking
 import github.commandblock2.coffee_mod.potion.CoffeeModPotions
 import github.commandblock2.coffee_mod.resource.CoffeeModCustomResourceLoader
 import net.fabricmc.api.ModInitializer
-import net.fabricmc.fabric.api.event.player.UseEntityCallback
-import net.fabricmc.fabric.api.event.player.UseItemCallback
 import net.minecraft.entity.EntityType
 import net.minecraft.registry.Registry
-import net.minecraft.util.ActionResult
 import net.minecraft.util.Identifier
-import net.minecraft.util.TypedActionResult
+
 
 @Suppress("UNUSED")
 object CoffeeMod : ModInitializer {
     const val MOD_ID = "coffee_mod"
+    val config = CoffeeModConfigSomething.config.disablePhantomSpawning()
+    // doesn't work here
     override fun onInitialize() {
         CoffeeModEffects
         CoffeeModItems
@@ -45,6 +44,7 @@ object CoffeeMod : ModInitializer {
         CoffeeModEntitySupport
         CoffeeModNetworking
         CoffeeModCustomResourceLoader
+
     }
 
     val supportedEntityTypes = listOf(

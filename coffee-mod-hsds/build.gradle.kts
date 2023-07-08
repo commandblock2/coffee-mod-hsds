@@ -9,7 +9,7 @@ version = project.extra["mod_version"] as String
 group = project.extra["maven_group"] as String
 
 
-val generatedPath = "src/main/generated"
+val generatedPath = "src/main/generated/datagen"
 
 loom {
     accessWidenerPath.set(file("src/main/resources/coffee_mod.accesswidener"))
@@ -38,6 +38,7 @@ sourceSets {
 
 repositories {
     maven("https://maven.wispforest.io")
+    maven("https://maven.terraformersmc.com/")
     // hope that there won't be a dependency injection attack someday
 }
 dependencies {
@@ -51,9 +52,12 @@ dependencies {
         project.extra["fabric_language_kotlin_version"] as String
     )
 
-    modImplementation("io.wispforest", "owo-lib", project.extra["owo_version"] as String)
     annotationProcessor("io.wispforest", "owo-lib", project.extra["owo_version"] as String)
+    modImplementation("io.wispforest", "owo-lib", project.extra["owo_version"] as String)
     include("io.wispforest", "owo-sentinel", project.extra["owo_version"] as String)
+
+    // development
+    modLocalRuntime("com.terraformersmc", "modmenu" , project.extra["mod_menu_version"] as String)
 }
 tasks {
     val javaVersion = JavaVersion.toVersion((project.extra["java_version"] as String).toInt())
