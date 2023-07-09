@@ -81,11 +81,6 @@ tasks {
         }
     }
 
-    withType<Jar> {
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    }
-    // no idea what I am doing here
-
     processResources {
         filesMatching("fabric.mod.json") {
             expand(
