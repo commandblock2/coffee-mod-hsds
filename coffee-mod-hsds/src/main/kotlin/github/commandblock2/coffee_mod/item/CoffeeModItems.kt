@@ -21,6 +21,7 @@ package github.commandblock2.coffee_mod.item
 
 import github.commandblock2.coffee_mod.CoffeeMod
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
+import net.minecraft.entity.EntityType
 import net.minecraft.item.Item
 import net.minecraft.registry.Registries
 
@@ -38,6 +39,8 @@ object CoffeeModItems {
                 )
             )
         }
+
+    val catShitCoffeeBean = shitCoffeeBeanItemByEntityType[EntityType.CAT]
 
     init {
         shitCoffeeBeanItemByEntityType

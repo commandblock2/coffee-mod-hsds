@@ -19,22 +19,17 @@
 
 package github.commandblock2.coffee_mod.datagen
 
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider
+import net.minecraft.advancement.Advancement
+import java.util.function.Consumer
 
-@Suppress("unused")
-object DataGeneration : DataGeneratorEntrypoint {
-    override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator?) {
-        val pack = fabricDataGenerator!!.createPack()
+class CoffeeModAdvancements(fabricDataOutput: FabricDataOutput) : FabricAdvancementProvider(fabricDataOutput) {
+    override fun generateAdvancement(consumer: Consumer<Advancement>) {
+        Consumer<Consumer<Advancement>> {
+            val rootAdvancement = Advancement.Builder
+                .create()
 
-        pack.addProvider { it: FabricDataOutput ->
-            CoffeeModAdvancements(it)
-        }
-
-        pack.addProvider { it:FabricDataOutput ->
-            CoffeeModModels(it)
-        }
+        }.accept(consumer)
     }
-
 }

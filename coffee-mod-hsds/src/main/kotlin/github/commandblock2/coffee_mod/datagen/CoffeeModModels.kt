@@ -19,22 +19,24 @@
 
 package github.commandblock2.coffee_mod.datagen
 
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
+import github.commandblock2.coffee_mod.item.CoffeeModItems
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider
+import net.minecraft.data.client.BlockStateModelGenerator
+import net.minecraft.data.client.ItemModelGenerator
+import net.minecraft.data.client.Models
 
-@Suppress("unused")
-object DataGeneration : DataGeneratorEntrypoint {
-    override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator?) {
-        val pack = fabricDataGenerator!!.createPack()
+class CoffeeModModels(fabricDataOutput: FabricDataOutput): FabricModelProvider(fabricDataOutput) {
+    override fun generateBlockStateModels(blockStateModelGenerator: BlockStateModelGenerator) {
 
-        pack.addProvider { it: FabricDataOutput ->
-            CoffeeModAdvancements(it)
-        }
-
-        pack.addProvider { it:FabricDataOutput ->
-            CoffeeModModels(it)
-        }
     }
 
+    override fun generateItemModels(itemModelGenerator: ItemModelGenerator) {
+
+        CoffeeModItems.shitCoffeeBeanItemByEntityType.forEach {
+            itemModelGenerator.register(it.value, CoffeeModItems.catShitCoffeeBean, Models.GENERATED)
+        }
+
+
+    }
 }

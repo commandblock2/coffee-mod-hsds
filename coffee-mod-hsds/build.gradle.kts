@@ -62,7 +62,7 @@ dependencies {
     include("io.wispforest", "owo-sentinel", project.extra["owo_version"] as String)
 
     // development
-    modLocalRuntime("com.terraformersmc", "modmenu" , project.extra["mod_menu_version"] as String)
+    modLocalRuntime("com.terraformersmc", "modmenu", project.extra["mod_menu_version"] as String)
 }
 tasks {
     val javaVersion = JavaVersion.toVersion((project.extra["java_version"] as String).toInt())
@@ -73,7 +73,19 @@ tasks {
         options.release.set(javaVersion.toString().toInt())
     }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> { kotlinOptions { jvmTarget = javaVersion.toString() } }
-    jar { from("LICENSE") { rename { "${it}_${base.archivesName.get()}" } } }
+    jar {
+        from("LICENSE") {
+            rename {
+                "${it}_${base.archivesName.get()}"
+            }
+        }
+    }
+
+    withType<Jar> {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
+    // no idea what I am doing here
+
     processResources {
         filesMatching("fabric.mod.json") {
             expand(
@@ -89,6 +101,13 @@ tasks {
             )
         }
         filesMatching("assets/${project.extra["mod_id"]}/lang/*.json") {
+            expand(
+                mutableMapOf(
+                    "mod_id" to project.extra["mod_id"] as String
+                )
+            )
+        }
+        filesMatching("assets/${project.extra["mod_id"]}/models/*.json") {
             expand(
                 mutableMapOf(
                     "mod_id" to project.extra["mod_id"] as String

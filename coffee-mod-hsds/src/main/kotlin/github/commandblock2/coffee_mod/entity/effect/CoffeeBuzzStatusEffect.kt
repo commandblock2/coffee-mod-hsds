@@ -82,7 +82,6 @@ class CoffeeBuzzStatusEffect : StatusEffect(StatusEffectCategory.NEUTRAL, 0x6c4c
 
         if (CoffeeModEntitySupport.catchupPhantomSpawnList.containsKey(entity) && !entity.world.isClient) {
             repeat(CoffeeModEntitySupport.catchupPhantomSpawnList[entity]!!) {
-                val world = entity.world
                 val phantom = EntityType.PHANTOM.create(world)
                 phantom?.updatePositionAndAngles(
                     entity.x + world.random.nextInt(6) - world.random.nextInt(6),
