@@ -17,8 +17,18 @@
  * along with CoffeeMod. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package github.commandblock2.coffee_mod.config;
+package github.commandblock2.coffee_mod.config
 
-public class CoffeeModConfigSomething { public static final github.commandblock2.coffee_mod.config.CoffeeModConfig config = github.commandblock2.coffee_mod.config.CoffeeModConfig.createAndLoad();
-    // no idea why it is like this
+import github.commandblock2.coffee_mod.CoffeeMod
+import io.wispforest.owo.config.annotation.Config
+import io.wispforest.owo.config.annotation.Modmenu
+
+@Modmenu(modId = CoffeeMod.MOD_ID)
+@Config(name = "coffee-config", wrapperName = "CoffeeModConfig")
+class CoffeeModConfigModel {
+    @JvmField
+    var disablePhantomSpawning = false
+
+    @JvmField
+    var respawnPhantomWhenEffectFades = false
 }

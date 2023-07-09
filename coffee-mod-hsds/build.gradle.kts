@@ -1,8 +1,11 @@
 import org.gradle.internal.classpath.Instrumented.systemProperty
 
+// TODO: put the versions into the properties
+
 plugins {
     id("fabric-loom")
     kotlin("jvm").version(System.getProperty("kotlin_version"))
+    id("com.google.devtools.ksp").version("${System.getProperty("kotlin_version")}-1.0.11")
 }
 base { archivesName.set(project.extra["archives_base_name"] as String) }
 version = project.extra["mod_version"] as String
@@ -39,6 +42,7 @@ sourceSets {
 repositories {
     maven("https://maven.wispforest.io")
     maven("https://maven.terraformersmc.com/")
+    maven("https://maven.kosmx.dev/")
     // hope that there won't be a dependency injection attack someday
 }
 dependencies {
@@ -53,6 +57,7 @@ dependencies {
     )
 
     annotationProcessor("io.wispforest", "owo-lib", project.extra["owo_version"] as String)
+    ksp("dev.kosmx.kowoconfig:ksp-owo-config:${project.extra["ksp-owo-config_version"]}")
     modImplementation("io.wispforest", "owo-lib", project.extra["owo_version"] as String)
     include("io.wispforest", "owo-sentinel", project.extra["owo_version"] as String)
 

@@ -29,6 +29,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents
 import net.fabricmc.fabric.api.event.player.UseEntityCallback
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.boss.dragon.EnderDragonPart
+import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.NbtCompound
@@ -50,6 +51,9 @@ object CoffeeModEntitySupport {
 
     private const val COFFEE_SAFE_TICKS = 20L * 60 * 30
     val suddenDeathCountdown: MutableMap<LivingEntity, Long> = mutableMapOf()
+
+
+    val catchupPhantomSpawnList: MutableMap<PlayerEntity, Int> = mutableMapOf()
 
     init {
         CoffeeModSchedule

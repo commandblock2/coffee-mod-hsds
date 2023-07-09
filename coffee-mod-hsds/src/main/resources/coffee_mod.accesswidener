@@ -5,3 +5,4 @@ accessible field net/minecraft/client/render/entity/LivingEntityRenderer model L
 accessible field net/minecraft/client/render/entity/VillagerEntityRenderer TEXTURE Lnet/minecraft/util/Identifier;
 mutable field net/minecraft/client/resource/language/TranslationStorage translations Ljava/util/Map;
 accessible field net/minecraft/client/resource/language/TranslationStorage translations Ljava/util/Map;
+accessible class net/minecraft/entity/SpawnRestriction$Entry

@@ -22,6 +22,7 @@ package github.commandblock2.coffee_mod.entity.effect
 import com.google.common.collect.ImmutableSet
 import com.mojang.datafixers.util.Pair
 import github.commandblock2.coffee_mod.entity.CoffeeModEntitySupport
+import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.ai.brain.Activity
 import net.minecraft.entity.ai.brain.MemoryModuleState
@@ -75,6 +76,20 @@ class CoffeeBuzzStatusEffect : StatusEffect(StatusEffectCategory.NEUTRAL, 0x6c4c
                             MemoryModuleState.VALUE_PRESENT
                         )
                     )
+                )
+            }
+        }
+
+        if (CoffeeModEntitySupport.catchupPhantomSpawnList.containsKey(entity) && !entity.world.isClient) {
+            repeat(CoffeeModEntitySupport.catchupPhantomSpawnList[entity]!!) {
+                val world = entity.world
+                val phantom = EntityType.PHANTOM.create(world)
+                phantom?.updatePositionAndAngles(
+                    entity.x + world.random.nextInt(6) - world.random.nextInt(6),
+                    entity.y + 5,
+                    entity.z + world.random.nextInt(6) - world.random.nextInt(6),
+                    world.random.nextFloat() * 360,
+                    .0f
                 )
             }
         }
