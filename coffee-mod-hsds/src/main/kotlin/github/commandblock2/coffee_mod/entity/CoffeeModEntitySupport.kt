@@ -20,6 +20,8 @@
 package github.commandblock2.coffee_mod.entity
 
 import github.commandblock2.coffee_mod.CoffeeMod
+import github.commandblock2.coffee_mod.datagen.CoffeeModAdvancements
+import github.commandblock2.coffee_mod.datagen.criterion.FeedSupportedEntityCriterion
 import github.commandblock2.coffee_mod.entity.ai.brain.CoffeeModSchedule
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
 import github.commandblock2.coffee_mod.item.CoffeeModItems
@@ -73,6 +75,9 @@ object CoffeeModEntitySupport {
                 return@register ActionResult.PASS
             }
 
+            if (player is ServerPlayerEntity)
+            CoffeeModAdvancements.customCriteria[FeedSupportedEntityCriterion::class.java]!!
+                .trigger(player)
 
             val itemStack = player.getStackInHand(hand)
             if (itemStack.item == Items.COCOA_BEANS && startIngesting(entity)) {

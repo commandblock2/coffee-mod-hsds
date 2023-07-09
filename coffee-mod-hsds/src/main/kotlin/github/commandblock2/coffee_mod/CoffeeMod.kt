@@ -20,6 +20,7 @@
 package github.commandblock2.coffee_mod
 
 import github.commandblock2.coffee_mod.config.CoffeeModConfig
+import github.commandblock2.coffee_mod.datagen.CoffeeModAdvancements
 import github.commandblock2.coffee_mod.entity.CoffeeModEntitySupport
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
 import github.commandblock2.coffee_mod.item.CoffeeModItems
@@ -46,6 +47,7 @@ object CoffeeMod : ModInitializer {
         CoffeeModEntitySupport
         CoffeeModNetworking
         CoffeeModCustomResourceLoader
+        CoffeeModAdvancements
 
     }
 

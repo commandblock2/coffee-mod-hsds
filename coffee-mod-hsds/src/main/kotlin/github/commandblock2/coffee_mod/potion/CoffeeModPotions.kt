@@ -43,28 +43,28 @@ object CoffeeModPotions {
     private const val PROLONGED_DURATION = 20 * 60 * 40
     private const val PROLONGED_HASTE_DURATION = 20 * 60 * 5
 
-    private val REGULAR_COFFEE_POTION = CoffeeMod.register(
+    val REGULAR_COFFEE_POTION = CoffeeMod.register(
         Registries.POTION, "regular_coffee_potion", Potion(
             StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, REGULAR_DURATION),
             StatusEffectInstance(StatusEffects.HASTE, REGULAR_HASTE_DURATION)
         )
     )
 
-    private val BOOSTED_COFFEE_POTION = CoffeeMod.register(
+    val BOOSTED_COFFEE_POTION = CoffeeMod.register(
         Registries.POTION, "boosted_coffee_potion", Potion(
             StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, BOOST_DURATION, 1),
             StatusEffectInstance(StatusEffects.HASTE, BOOST_HASTE_DURATION, 1)
         )
     )
 
-    private val PROLONGED_COFFEE_POTION = CoffeeMod.register(
+    val PROLONGED_COFFEE_POTION = CoffeeMod.register(
         Registries.POTION, "prolonged_coffee_potion", Potion(
             StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, PROLONGED_DURATION),
             StatusEffectInstance(StatusEffects.HASTE, PROLONGED_HASTE_DURATION)
         )
     )
 
-    private val specialShitCoffeeBrewingRecipe = CoffeeMod.supportedEntityTypes.map {
+    val specialShitCoffeeBrewingRecipe = CoffeeMod.supportedEntityTypes.map {
 
         val shitCoffeeRegularPotion = CoffeeMod.register(
             Registries.POTION,

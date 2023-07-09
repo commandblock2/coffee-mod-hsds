@@ -1,8 +1,8 @@
-# Coffee Mod (WIP)
+# Coffee Mod <img src="coffee-mod-hsds/src/main/resources/assets/coffee_mod/icon.png" width="64"> (WIP)
 A fabric implementation of the coffee mod, idea by hsds. The link of the video https://www.bilibili.com/video/BV1JD4y1579K/.
 
 ## Features
-- [x] Can brew coffee with brewing table with water bottle and cocoa bean.
+- [x] Can brew coffee with brewing stand with water bottle and cocoa bean.
 - Consuming coffee gives a potion effect (Coffee Buzz) which
   1. [x] exempts you from phantoms
   2. [x] prevents night skipping when trying to sleep
@@ -14,7 +14,7 @@ A fabric implementation of the coffee mod, idea by hsds. The link of the video h
   1. [x] Dragon Shit Coffee enables the ability to spit dragon breath
   2. [x] Villager Shit Coffee can cause an enlarged nose after consumption
   3. [ ] More to be added ... waiting for your proposal
-- [ ] Advancements
+- [x] Advancements
 
 Note that cocoa bean is different from coffee bean in reality
 
@@ -22,4 +22,3 @@ Note that cocoa bean is different from coffee bean in reality
 - Finish advancements and rewrite previous section according to advancements
 - Texturing
 - Also game play improvement like particles and sound effect
-- Translation

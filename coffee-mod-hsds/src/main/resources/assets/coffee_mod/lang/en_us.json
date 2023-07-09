@@ -26,5 +26,14 @@
   "wildcard.item.minecraft.lingering_potion.effect.%s_shit_coffee_prolonged_potion" :  "Mild Lingering %s Shit Coffee",
   "effect.${mod_id}.coffee_buzz": "Coffee Buzz",
   "wildcard.effect.${mod_id}.%s_coffee_buzz": "%s Shit Coffee Buzz",
-  "death.${mod_id}.overdose": "%s drank too much coffee"
+  "death.${mod_id}.overdose": "%s drank too much coffee",
+  "text.config.coffee-config.title": "CoffeeMod Config",
+  "text.config.coffee-config.option.disablePhantomSpawning": "Disable phantom spawning (when nearest player has coffee buzz)",
+  "text.config.coffee-config.option.respawnPhantomWhenEffectFades": "Respawn the phantoms when the effect fades (discarded in the previous option) ",
+  "advancements.${mod_id}.root.title" : "CoffeeMod",
+  "advancements.${mod_id}.root.desc": "The journey of Coffee & Shit begins with cocoa bean",
+  "advancements.${mod_id}.feed-any.title": "Shit coffee bean in minutes",
+  "advancements.${mod_id}.feed-any.desc": "Feed any supported entity with a cocoa bean",
+  "advancements.${mod_id}.brew.title": "Coffee Brewer",
+  "advancements.${mod_id}.brew.desc": "Acquire a cup of coffee"
 }
