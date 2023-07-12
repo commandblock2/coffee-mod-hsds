@@ -99,6 +99,18 @@ object CoffeeModPotions {
         )
     }
 
+    val allPotions = specialShitCoffeeBrewingRecipe
+        .flatMap {
+            it.second.toList()
+        }
+        .union(
+            listOf(
+                REGULAR_COFFEE_POTION,
+                BOOSTED_COFFEE_POTION,
+                PROLONGED_COFFEE_POTION
+            )
+        ).toList()
+
     fun registerPotions(func: TriConsumer<Potion, Item, Potion>) {
         func.accept(Potions.WATER, Items.COCOA_BEANS, REGULAR_COFFEE_POTION)
         func.accept(REGULAR_COFFEE_POTION, Items.GLOWSTONE_DUST, BOOSTED_COFFEE_POTION)

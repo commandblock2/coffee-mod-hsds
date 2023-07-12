@@ -20,7 +20,9 @@
 package github.commandblock2.coffee_mod.datagen
 
 import github.commandblock2.coffee_mod.CoffeeMod
+import github.commandblock2.coffee_mod.datagen.criterion.AcquireAnyOfCoffeeCriterion
 import github.commandblock2.coffee_mod.datagen.criterion.FeedSupportedEntityCriterion
+import github.commandblock2.coffee_mod.datagen.criterion.ServerPlayerTriggerble
 import github.commandblock2.coffee_mod.item.CoffeeModItems
 import github.commandblock2.coffee_mod.potion.CoffeeModPotions
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
@@ -28,11 +30,14 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider
 import net.minecraft.advancement.Advancement
 import net.minecraft.advancement.AdvancementDisplay
 import net.minecraft.advancement.AdvancementFrame
+import net.minecraft.advancement.criterion.AbstractCriterion
 import net.minecraft.advancement.criterion.Criteria
+import net.minecraft.advancement.criterion.Criterion
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.potion.PotionUtil
+import net.minecraft.predicate.item.ItemPredicate
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import java.util.function.Consumer
@@ -94,34 +99,25 @@ class CoffeeModAdvancements(fabricDataOutput: FabricDataOutput) : FabricAdvancem
                 )
                 .parent(rootAdvancement)
                 .criterion(
-                    "brew_with_brewing_stand", InventoryChangedCriterion.Conditions.items(
-                        *CoffeeModPotions.specialShitCoffeeBrewingRecipe.flatMap { recipe ->
-                            recipe.second.toList()
-                        }
-                            .union(
-                                listOf(
-                                    CoffeeModPotions.PROLONGED_COFFEE_POTION,
-                                    CoffeeModPotions.BOOSTED_COFFEE_POTION,
-                                    CoffeeModPotions.REGULAR_COFFEE_POTION
-                                )
-                            )
-                            .map {
-                                PotionUtil.setPotion(Items.POTION.defaultStack, it).item
-                            }.toTypedArray()
-                    )
+                    "brew_with_brewing_stand",
+                    AcquireAnyOfCoffeeCriterion.Condition()
                 )
                 .build(it, "${CoffeeMod.MOD_ID}/brew")
         }.accept(consumer)
     }
 
     companion object {
-        private val customCriteriaClasses = listOf(
-            FeedSupportedEntityCriterion::class.java
+        private val customCriteriaClasses : List<Class<out ServerPlayerTriggerble>> = listOf(
+            FeedSupportedEntityCriterion::class.java,
+            AcquireAnyOfCoffeeCriterion::class.java
         )
 
-        val customCriteria = customCriteriaClasses.associateBy({ it }) {
-            Criteria.register(it.getConstructor().newInstance())
+        private val _customCriteria = customCriteriaClasses.associateBy({ it }) {
+            Criteria.register(it.getConstructor().newInstance() as Criterion<*>)
         }
 
+        fun getCustomCriteria(clazz: Class<out ServerPlayerTriggerble>) : ServerPlayerTriggerble {
+            return _customCriteria[clazz] as ServerPlayerTriggerble
+        }
     }
 }

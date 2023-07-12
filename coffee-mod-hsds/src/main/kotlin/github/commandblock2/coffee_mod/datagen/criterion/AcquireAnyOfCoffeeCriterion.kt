@@ -21,22 +21,27 @@ package github.commandblock2.coffee_mod.datagen.criterion
 
 import com.google.gson.JsonObject
 import github.commandblock2.coffee_mod.CoffeeMod
+import github.commandblock2.coffee_mod.potion.CoffeeModPotions
 import net.minecraft.advancement.criterion.AbstractCriterion
 import net.minecraft.advancement.criterion.AbstractCriterionConditions
+import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
+import net.minecraft.potion.PotionUtil
 import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer
 import net.minecraft.predicate.entity.LootContextPredicate
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.Identifier
-import java.util.*
 
-class FeedSupportedEntityCriterion :
-    AbstractCriterion<FeedSupportedEntityCriterion.Condition>(),
-    ServerPlayerTriggerble
-{
+class AcquireAnyOfCoffeeCriterion :
+    AbstractCriterion<AcquireAnyOfCoffeeCriterion.Condition>(),
+    ServerPlayerTriggerble {
+
     companion object {
         @JvmStatic
-        val identifier = Identifier(CoffeeMod.MOD_ID, "feed_any_supported_entity")
+        val identifier = Identifier(CoffeeMod.MOD_ID, "acquire_an_coffee")
     }
+
+    class Condition : AbstractCriterionConditions(identifier, LootContextPredicate.EMPTY)
 
     override fun getId(): Identifier {
         return identifier
@@ -50,11 +55,19 @@ class FeedSupportedEntityCriterion :
         return Condition()
     }
 
-    class Condition : AbstractCriterionConditions(identifier, LootContextPredicate.EMPTY)
 
     override fun trigger(playerEntity: ServerPlayerEntity, vararg args: Any) {
+        val changedStack = args[0] as ItemStack
         trigger(playerEntity) {
-            true
+            changedStack.item == Items.POTION &&
+                    CoffeeModPotions
+                        .allPotions
+                        .contains(
+                            PotionUtil
+                                .getPotion(changedStack)
+                        )
+
         }
     }
+
 }

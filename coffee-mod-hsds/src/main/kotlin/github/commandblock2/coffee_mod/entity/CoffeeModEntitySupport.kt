@@ -76,7 +76,7 @@ object CoffeeModEntitySupport {
             }
 
             if (player is ServerPlayerEntity)
-            CoffeeModAdvancements.customCriteria[FeedSupportedEntityCriterion::class.java]!!
+            CoffeeModAdvancements.getCustomCriteria(FeedSupportedEntityCriterion::class.java)
                 .trigger(player)
 
             val itemStack = player.getStackInHand(hand)
@@ -224,33 +224,33 @@ object CoffeeModEntitySupport {
     fun removeEntityFromDeathTracker(entity: LivingEntity) {
         suddenDeathCountdown.remove(entity)
     }
-}
 
-class PersistentStorage : PersistentState() {
+    class PersistentStorage : PersistentState() {
 
-    override fun writeNbt(nbt: NbtCompound?): NbtCompound {
+        override fun writeNbt(nbt: NbtCompound?): NbtCompound {
 
-        val beanTimers = CoffeeModEntitySupport.coffeeBeanTimers.map { (entity, value) ->
-            val entryTag = NbtCompound()
-            entryTag.putString("entityId", entity.uuidAsString)
-            entryTag.putInt("dimension", entity.server!!.worlds.indexOf(entity.world))
-            entryTag.putInt("coffeeBean", value)
-            entryTag
-        }.toCollection(NbtList())
+            val beanTimers = coffeeBeanTimers.map { (entity, value) ->
+                val entryTag = NbtCompound()
+                entryTag.putString("entityId", entity.uuidAsString)
+                entryTag.putInt("dimension", entity.server!!.worlds.indexOf(entity.world))
+                entryTag.putInt("coffeeBean", value)
+                entryTag
+            }.toCollection(NbtList())
 
-        nbt!!.put("beanTimers", beanTimers)
+            nbt!!.put("beanTimers", beanTimers)
 
-        val deathTimers = CoffeeModEntitySupport.suddenDeathCountdown.map { (entity, value) ->
-            val entryTag = NbtCompound()
-            entryTag.putString("entityId", entity.uuidAsString)
-            entryTag.putInt("dimension", entity.server!!.worlds.indexOf(entity.world))
-            entryTag.putLong("death", value)
-            entryTag
-        }.toCollection(NbtList())
+            val deathTimers = suddenDeathCountdown.map { (entity, value) ->
+                val entryTag = NbtCompound()
+                entryTag.putString("entityId", entity.uuidAsString)
+                entryTag.putInt("dimension", entity.server!!.worlds.indexOf(entity.world))
+                entryTag.putLong("death", value)
+                entryTag
+            }.toCollection(NbtList())
 
-        nbt.put("deathTimers", deathTimers)
+            nbt.put("deathTimers", deathTimers)
 
-        return nbt
+            return nbt
+        }
+
     }
-
 }
