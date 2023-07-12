@@ -44,21 +44,21 @@ object CoffeeModPotions {
     private const val PROLONGED_HASTE_DURATION = 20 * 60 * 5
 
     val REGULAR_COFFEE_POTION = CoffeeMod.register(
-        Registries.POTION, "regular_coffee_potion", Potion(
+        Registries.POTION, "regular_coffee_potion", Potion("regular_coffee_potion",
             StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, REGULAR_DURATION),
             StatusEffectInstance(StatusEffects.HASTE, REGULAR_HASTE_DURATION)
         )
     )
 
     val BOOSTED_COFFEE_POTION = CoffeeMod.register(
-        Registries.POTION, "boosted_coffee_potion", Potion(
+        Registries.POTION, "boosted_coffee_potion", Potion("boosted_coffee_potion",
             StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, BOOST_DURATION, 1),
             StatusEffectInstance(StatusEffects.HASTE, BOOST_HASTE_DURATION, 1)
         )
     )
 
     val PROLONGED_COFFEE_POTION = CoffeeMod.register(
-        Registries.POTION, "prolonged_coffee_potion", Potion(
+        Registries.POTION, "prolonged_coffee_potion", Potion("prolonged_coffee_potion",
             StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, PROLONGED_DURATION),
             StatusEffectInstance(StatusEffects.HASTE, PROLONGED_HASTE_DURATION)
         )
@@ -68,7 +68,7 @@ object CoffeeModPotions {
 
         val shitCoffeeRegularPotion = CoffeeMod.register(
             Registries.POTION,
-            it.untranslatedName + "_shit_coffee_potion", Potion(
+            it.untranslatedName + "_shit_coffee_potion", Potion(it.untranslatedName + "_shit_coffee_potion",
                 StatusEffectInstance(CoffeeModEffects.specialEffectByEntityType[it], REGULAR_DURATION),
                 StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, REGULAR_DURATION),
                 StatusEffectInstance(StatusEffects.HASTE, REGULAR_HASTE_DURATION, if (it == EntityType.CAT) 1 else 0)
@@ -76,7 +76,7 @@ object CoffeeModPotions {
         )
         val shitCoffeeBoostedPotion = CoffeeMod.register(
             Registries.POTION,
-            it.untranslatedName + "_shit_coffee_boosted_potion", Potion(
+            it.untranslatedName + "_shit_coffee_boosted_potion", Potion(it.untranslatedName + "_shit_coffee_boosted_potion",
                 StatusEffectInstance(CoffeeModEffects.specialEffectByEntityType[it], BOOST_DURATION),
                 StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, BOOST_DURATION),
                 StatusEffectInstance(StatusEffects.HASTE, BOOST_HASTE_DURATION, if (it == EntityType.CAT) 2 else 1)
@@ -84,7 +84,7 @@ object CoffeeModPotions {
         )
         val shitCoffeeProlongedPotion = CoffeeMod.register(
             Registries.POTION,
-            it.untranslatedName + "_shit_coffee_prolonged_potion", Potion(
+            it.untranslatedName + "_shit_coffee_prolonged_potion", Potion(it.untranslatedName + "_shit_coffee_prolonged_potion",
                 StatusEffectInstance(CoffeeModEffects.specialEffectByEntityType[it], PROLONGED_DURATION),
                 StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, PROLONGED_DURATION),
                 StatusEffectInstance(StatusEffects.HASTE, PROLONGED_HASTE_DURATION, if (it == EntityType.CAT) 1 else 0)

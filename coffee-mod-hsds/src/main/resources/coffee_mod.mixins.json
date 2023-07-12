@@ -6,7 +6,6 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "minecraft.advancement.criterion.MixinInventoryChangedCriterion",
     "minecraft.entity.MixinLivingEntity",
     "minecraft.entity.MixinSpawnRestriction",
     "minecraft.entity.passive.MixinVillagerEntity",

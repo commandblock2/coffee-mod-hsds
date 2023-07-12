@@ -20,7 +20,6 @@
 package github.commandblock2.coffee_mod.datagen
 
 import github.commandblock2.coffee_mod.CoffeeMod
-import github.commandblock2.coffee_mod.datagen.criterion.AcquireAnyOfCoffeeCriterion
 import github.commandblock2.coffee_mod.datagen.criterion.FeedSupportedEntityCriterion
 import github.commandblock2.coffee_mod.datagen.criterion.ServerPlayerTriggerble
 import github.commandblock2.coffee_mod.item.CoffeeModItems
@@ -30,14 +29,16 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider
 import net.minecraft.advancement.Advancement
 import net.minecraft.advancement.AdvancementDisplay
 import net.minecraft.advancement.AdvancementFrame
-import net.minecraft.advancement.criterion.AbstractCriterion
+import net.minecraft.advancement.CriterionMerger
+import net.minecraft.advancement.criterion.BrewedPotionCriterion
 import net.minecraft.advancement.criterion.Criteria
 import net.minecraft.advancement.criterion.Criterion
 import net.minecraft.advancement.criterion.InventoryChangedCriterion
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
+import net.minecraft.item.PotionItem
 import net.minecraft.potion.PotionUtil
-import net.minecraft.predicate.item.ItemPredicate
+import net.minecraft.predicate.entity.LootContextPredicate
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import java.util.function.Consumer
@@ -83,7 +84,7 @@ class CoffeeModAdvancements(fabricDataOutput: FabricDataOutput) : FabricAdvancem
                 .criterion("feed_any_supported_entity", FeedSupportedEntityCriterion.Condition())
                 .build(it, "${CoffeeMod.MOD_ID}/feed-any")
 
-            val brewWithBrewingTable = Advancement.Builder
+            val brewWithBrewingTableButNotComplete = Advancement.Builder
                 .create()
                 .display(
                     AdvancementDisplay(
@@ -98,10 +99,14 @@ class CoffeeModAdvancements(fabricDataOutput: FabricDataOutput) : FabricAdvancem
                     )
                 )
                 .parent(rootAdvancement)
-                .criterion(
-                    "brew_with_brewing_stand",
-                    AcquireAnyOfCoffeeCriterion.Condition()
+
+            val brewWithBrewingTable = CoffeeModPotions.allPotions.fold(brewWithBrewingTableButNotComplete) {
+                acc, potion ->
+                acc.criterion("brew_${potion.baseName}",
+                    BrewedPotionCriterion.Conditions(LootContextPredicate.EMPTY, potion)
                 )
+            }
+                .criteriaMerger(CriterionMerger.OR)
                 .build(it, "${CoffeeMod.MOD_ID}/brew")
         }.accept(consumer)
     }
@@ -109,7 +114,6 @@ class CoffeeModAdvancements(fabricDataOutput: FabricDataOutput) : FabricAdvancem
     companion object {
         private val customCriteriaClasses : List<Class<out ServerPlayerTriggerble>> = listOf(
             FeedSupportedEntityCriterion::class.java,
-            AcquireAnyOfCoffeeCriterion::class.java
         )
 
         private val _customCriteria = customCriteriaClasses.associateBy({ it }) {

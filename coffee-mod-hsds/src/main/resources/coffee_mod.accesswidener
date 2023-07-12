@@ -6,3 +6,4 @@ accessible field net/minecraft/client/render/entity/VillagerEntityRenderer TEXTU
 mutable field net/minecraft/client/resource/language/TranslationStorage translations Ljava/util/Map;
 accessible field net/minecraft/client/resource/language/TranslationStorage translations Ljava/util/Map;
 accessible class net/minecraft/entity/SpawnRestriction$Entry
+accessible field net/minecraft/potion/Potion baseName Ljava/lang/String;
