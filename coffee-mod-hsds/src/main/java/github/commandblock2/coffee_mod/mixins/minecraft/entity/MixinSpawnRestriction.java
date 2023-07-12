@@ -60,8 +60,8 @@ public class MixinSpawnRestriction {
 
                     final var canSpawnByCoffee =
                             !CoffeeMod.INSTANCE.getConfig().getDisablePhantomSpawning() ||
-                                    reason == SpawnReason.NATURAL &&
-                                            player.hasStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect());
+                                    (reason == SpawnReason.NATURAL &&
+                                            !player.hasStatusEffect(CoffeeModEffects.INSTANCE.getCoffeeBuzzStatusEffect()));
 
                     final var canVanillaSpawn = MobEntity.canMobSpawn(
                             (EntityType<? extends MobEntity>)(Object) entityType,

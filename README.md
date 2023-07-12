@@ -22,3 +22,4 @@ Note that cocoa bean is different from coffee bean in reality
 - Finish advancements and rewrite previous section according to advancements
 - Texturing
 - Also game play improvement like particles and sound effect
+- Gamerule!!! instead of config file and strip the dependency of owo maybe
