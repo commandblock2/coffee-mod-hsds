@@ -55,7 +55,7 @@ object CoffeeModEntitySupport {
     val suddenDeathCountdown: MutableMap<LivingEntity, Long> = mutableMapOf()
 
 
-    val catchupPhantomSpawnList: MutableMap<PlayerEntity, Int> = mutableMapOf()
+    val catchupPhantomSpawnList: MutableMap<ServerPlayerEntity, Int> = mutableMapOf()
 
     init {
         CoffeeModSchedule
@@ -76,8 +76,8 @@ object CoffeeModEntitySupport {
             }
 
             if (player is ServerPlayerEntity)
-            CoffeeModAdvancements.getCustomCriteria(FeedSupportedEntityCriterion::class.java)
-                .trigger(player)
+                CoffeeModAdvancements.getCustomCriteria(FeedSupportedEntityCriterion::class.java)
+                    .trigger(player)
 
             val itemStack = player.getStackInHand(hand)
             if (itemStack.item == Items.COCOA_BEANS && startIngesting(entity)) {

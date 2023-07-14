@@ -34,37 +34,37 @@ import net.minecraft.registry.Registries
 
 object CoffeeModPotions {
 
-    private const val REGULAR_DURATION = 20 * 60 * 40
+    private const val REGULAR_DURATION = 20 * 60 * 30
     private const val REGULAR_HASTE_DURATION = 20 * 60 * 5
 
-    private const val BOOST_DURATION = 20 * 60 * 40
+    private const val BOOST_DURATION = 20 * 60 * 30
     private const val BOOST_HASTE_DURATION = 20 * 60 * 5
 
     private const val PROLONGED_DURATION = 20 * 60 * 40
-    private const val PROLONGED_HASTE_DURATION = 20 * 60 * 5
+    private const val PROLONGED_HASTE_DURATION = 20 * 60 * 10
 
-    val REGULAR_COFFEE_POTION = CoffeeMod.register(
+    private val REGULAR_COFFEE_POTION = CoffeeMod.register(
         Registries.POTION, "regular_coffee_potion", Potion("regular_coffee_potion",
             StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, REGULAR_DURATION),
             StatusEffectInstance(StatusEffects.HASTE, REGULAR_HASTE_DURATION)
         )
     )
 
-    val BOOSTED_COFFEE_POTION = CoffeeMod.register(
+    private val BOOSTED_COFFEE_POTION = CoffeeMod.register(
         Registries.POTION, "boosted_coffee_potion", Potion("boosted_coffee_potion",
             StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, BOOST_DURATION, 1),
             StatusEffectInstance(StatusEffects.HASTE, BOOST_HASTE_DURATION, 1)
         )
     )
 
-    val PROLONGED_COFFEE_POTION = CoffeeMod.register(
+    private val PROLONGED_COFFEE_POTION = CoffeeMod.register(
         Registries.POTION, "prolonged_coffee_potion", Potion("prolonged_coffee_potion",
             StatusEffectInstance(CoffeeModEffects.coffeeBuzzStatusEffect, PROLONGED_DURATION),
             StatusEffectInstance(StatusEffects.HASTE, PROLONGED_HASTE_DURATION)
         )
     )
 
-    val specialShitCoffeeBrewingRecipe = CoffeeMod.supportedEntityTypes.map {
+    private val specialShitCoffeeBrewingRecipe = CoffeeMod.supportedEntityTypes.map {
 
         val shitCoffeeRegularPotion = CoffeeMod.register(
             Registries.POTION,

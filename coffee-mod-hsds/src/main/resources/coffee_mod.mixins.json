@@ -7,11 +7,11 @@
   },
   "mixins": [
     "minecraft.entity.MixinLivingEntity",
-    "minecraft.entity.MixinSpawnRestriction",
     "minecraft.entity.passive.MixinVillagerEntity",
     "minecraft.recipe.MixinBrewingRecipeRegistry",
     "minecraft.server.network.MixinServerPlayerEntity",
-    "minecraft.server.world.MixinSleepManager"
+    "minecraft.server.world.MixinSleepManager",
+    "minecraft.server.world.spawner.MixinPhantomSpawner"
   ],
   "client": [
     "minecraft.client.MixinMinecraftClient",

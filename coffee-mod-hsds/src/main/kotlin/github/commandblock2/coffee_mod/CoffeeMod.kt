@@ -19,7 +19,6 @@
 
 package github.commandblock2.coffee_mod
 
-import github.commandblock2.coffee_mod.config.CoffeeModConfig
 import github.commandblock2.coffee_mod.datagen.CoffeeModAdvancements
 import github.commandblock2.coffee_mod.entity.CoffeeModEntitySupport
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
@@ -27,6 +26,7 @@ import github.commandblock2.coffee_mod.item.CoffeeModItems
 import github.commandblock2.coffee_mod.networking.CoffeeModNetworking
 import github.commandblock2.coffee_mod.potion.CoffeeModPotions
 import github.commandblock2.coffee_mod.resource.CoffeeModCustomResourceLoader
+import github.commandblock2.coffee_mod.world.CoffeeModGamerules
 import net.fabricmc.api.ModInitializer
 import net.minecraft.entity.EntityType
 import net.minecraft.registry.Registry
@@ -37,8 +37,6 @@ import net.minecraft.util.Identifier
 object CoffeeMod : ModInitializer {
     const val MOD_ID = "coffee_mod"
 
-    val config = CoffeeModConfig.createAndLoad()
-
     // doesn't work here
     override fun onInitialize() {
         CoffeeModEffects
@@ -48,7 +46,7 @@ object CoffeeMod : ModInitializer {
         CoffeeModNetworking
         CoffeeModCustomResourceLoader
         CoffeeModAdvancements
-
+        CoffeeModGamerules
     }
 
     val supportedEntityTypes = listOf(
