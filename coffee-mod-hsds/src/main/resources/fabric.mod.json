@@ -36,7 +36,6 @@
     "fabricloader": "*",
     "fabric-api": "*",
     "fabric-language-kotlin": "*",
-    "owo-lib": "*",
     "minecraft": "~${minecraft}",
     "java": ">=${java}"
   },
