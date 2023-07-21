@@ -20,6 +20,7 @@
 package github.commandblock2.coffee_mod.mixins.minecraft.server.world;
 
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects;
+import github.commandblock2.coffee_mod.world.CoffeeModGamerules;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.SleepManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -60,9 +61,18 @@ public class MixinSleepManager {
 
         final boolean updates = !(updated_sleeping <= 0 && sleeping <= 0 || updated_total == total && updated_sleeping == sleeping);
 
+
         sleeping = updated_sleeping;
         total = updated_total;
 
-        return updates;
+        if (players.size() != 0) {
+            final var player = players.get(0);
+            final var server = player.getServerWorld();
+
+            if (server.getGameRules().getBoolean(CoffeeModGamerules.INSTANCE.getNoNightSkipIfAnyOnCoffee()))
+                sleeping = 0;
+        }
+
+        return updates || updated_sleeping != sleeping;
     }
 }

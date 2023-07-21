@@ -29,6 +29,8 @@
   "death.${mod_id}.overdose": "%s drank too much coffee",
   "gamerule.spawnPhantomsForCoffeedPlayer": "Disable phantom spawning (when nearest player has coffee buzz)",
   "gamerule.respawnDiscardedPhantoms": "Respawn the phantoms when the effect fades (discarded in the previous option) ",
+  "gamerule.clearCoffeeExhaustionTimerOnSleep": "Clear the coffee exhaustion timer on entity sleep, if such entity can not sleep it will die eventually",
+  "gamerule.noNightSkipIfAnyOnCoffee": "Do not skipp the night if any player has coffee buzz effect",
   "advancements.${mod_id}.root.title" : "CoffeeMod",
   "advancements.${mod_id}.root.desc": "The journey of Coffee & Shit begins with cocoa bean",
   "advancements.${mod_id}.feed-any.title": "Shit coffee bean in minutes",

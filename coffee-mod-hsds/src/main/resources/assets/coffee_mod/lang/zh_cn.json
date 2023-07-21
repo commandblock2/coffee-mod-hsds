@@ -34,5 +34,7 @@
   "advancements.${mod_id}.feed-any.title": "啊哈哈哈哈 咖啡豆来喽",
   "advancements.${mod_id}.feed-any.desc": "给任意支持的实体喂食咖啡豆",
   "advancements.${mod_id}.brew.title": "咖啡机",
-  "advancements.${mod_id}.brew.desc": "获得一杯咖啡"
+  "advancements.${mod_id}.brew.desc": "获得一杯咖啡",
+  "gamerule.clearCoffeeExhaustionTimerOnSleep": "睡觉的时候清零劳累的计时器，如果这类的实体不能睡觉那就过一阵会死",
+  "gamerule.noNightSkipIfAnyOnCoffee": "一人睡觉全服熬夜"
 }

@@ -25,13 +25,14 @@ import github.commandblock2.coffee_mod.datagen.criterion.FeedSupportedEntityCrit
 import github.commandblock2.coffee_mod.entity.ai.brain.CoffeeModSchedule
 import github.commandblock2.coffee_mod.entity.effect.CoffeeModEffects
 import github.commandblock2.coffee_mod.item.CoffeeModItems
+import github.commandblock2.coffee_mod.world.CoffeeModGamerules
+import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents
 import net.fabricmc.fabric.api.event.player.UseEntityCallback
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.boss.dragon.EnderDragonPart
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import net.minecraft.nbt.NbtCompound
@@ -114,10 +115,21 @@ object CoffeeModEntitySupport {
                 storage.markDirty()
             }
         }
+
+        EntitySleepEvents.START_SLEEPING.register { entity, pos ->
+            if (entity.world.isClient)
+                return@register
+            if (entity.server!!.getGameRules().getBoolean(CoffeeModGamerules.clearTimerOnSleep))
+                suddenDeathCountdown[entity] = 0
+        }
     }
 
     private fun processCoffeeDeathTick() {
         for (entity in suddenDeathCountdown.keys) {
+
+            if (!entity.hasStatusEffect(CoffeeModEffects.coffeeBuzzStatusEffect))
+                continue
+
             val effectLevel = entity.getStatusEffect(CoffeeModEffects.coffeeBuzzStatusEffect)!!.amplifier + 1
             val tickSpeed = effectLevel + if (entity.hasStatusEffect(CoffeeModEffects.catCoffeeEffect)) 1 else 0
 

@@ -22,6 +22,7 @@ package github.commandblock2.coffee_mod.entity.effect
 import com.google.common.collect.ImmutableSet
 import com.mojang.datafixers.util.Pair
 import github.commandblock2.coffee_mod.entity.CoffeeModEntitySupport
+import github.commandblock2.coffee_mod.world.CoffeeModGamerules.clearTimerOnSleep
 import net.minecraft.entity.EntityData
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
@@ -38,7 +39,6 @@ import net.minecraft.entity.passive.VillagerEntity
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.stat.Stats
-import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
 import net.minecraft.village.VillagerProfession
 import net.minecraft.world.SpawnHelper
@@ -67,7 +67,8 @@ class CoffeeBuzzStatusEffect : StatusEffect(StatusEffectCategory.NEUTRAL, 0x6c4c
 
         world.updateSleepingPlayers()
 
-        CoffeeModEntitySupport.removeEntityFromDeathTracker(entity)
+        if (!world.getGameRules().getBoolean(clearTimerOnSleep))
+            CoffeeModEntitySupport.removeEntityFromDeathTracker(entity)
 
         if (entity is VillagerEntity) {
             val villagerProfession: VillagerProfession = entity.villagerData.profession

@@ -25,8 +25,12 @@ import net.minecraft.world.GameRules
 
 
 object CoffeeModGamerules {
-    val spawnPhantoms =
+    val spawnPhantoms: GameRules.Key<GameRules.BooleanRule> =
         GameRuleRegistry.register("spawnPhantomsForCoffeedPlayer", GameRules.Category.MOBS, GameRuleFactory.createBooleanRule(true))
-    val catchupSpawn =
+    val catchupSpawn: GameRules.Key<GameRules.BooleanRule> =
         GameRuleRegistry.register("respawnDiscardedPhantoms", GameRules.Category.MOBS, GameRuleFactory.createBooleanRule(false))
+    val clearTimerOnSleep: GameRules.Key<GameRules.BooleanRule> =
+        GameRuleRegistry.register("clearCoffeeExhaustionTimerOnSleep", GameRules.Category.MOBS, GameRuleFactory.createBooleanRule(false))
+    val noNightSkipIfAnyOnCoffee: GameRules.Key<GameRules.BooleanRule> =
+        GameRuleRegistry.register("noNightSkipIfAnyOnCoffee", GameRules.Category.MOBS, GameRuleFactory.createBooleanRule(false))
 }
