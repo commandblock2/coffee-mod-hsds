@@ -134,6 +134,7 @@ class CoffeeModAdvancements(fabricDataOutput: FabricDataOutput) : FabricAdvancem
     companion object {
         private val customCriteriaClasses : List<Class<out ServerPlayerTriggerble>> = listOf(
             FeedSupportedEntityCriterion::class.java,
+            SuddenDeathCriterion::class.java
         )
 
         private val _customCriteria = customCriteriaClasses.associateBy({ it }) {
