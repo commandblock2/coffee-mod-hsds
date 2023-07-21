@@ -36,5 +36,7 @@
   "advancements.${mod_id}.feed-any.title": "Shit coffee bean in minutes",
   "advancements.${mod_id}.feed-any.desc": "Feed any supported entity with a cocoa bean",
   "advancements.${mod_id}.brew.title": "Coffee Brewer",
-  "advancements.${mod_id}.brew.desc": "Acquire a cup of coffee"
+  "advancements.${mod_id}.brew.desc": "Acquire a cup of coffee",
+  "advancements.${mod_id}.die.title": "Heart Attack",
+  "advancements.${mod_id}.die.desc": "Ooops I seemed to drank too much coffee"
 }

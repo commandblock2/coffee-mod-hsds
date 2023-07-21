@@ -22,6 +22,7 @@ package github.commandblock2.coffee_mod.datagen
 import github.commandblock2.coffee_mod.CoffeeMod
 import github.commandblock2.coffee_mod.datagen.criterion.FeedSupportedEntityCriterion
 import github.commandblock2.coffee_mod.datagen.criterion.ServerPlayerTriggerble
+import github.commandblock2.coffee_mod.datagen.criterion.SuddenDeathCriterion
 import github.commandblock2.coffee_mod.item.CoffeeModItems
 import github.commandblock2.coffee_mod.potion.CoffeeModPotions
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
@@ -108,6 +109,25 @@ class CoffeeModAdvancements(fabricDataOutput: FabricDataOutput) : FabricAdvancem
             }
                 .criteriaMerger(CriterionMerger.OR)
                 .build(it, "${CoffeeMod.MOD_ID}/brew")
+
+            val heartAttack = Advancement.Builder
+                .create()
+                .display(
+                    AdvancementDisplay(
+                        ItemStack(Items.HEARTBREAK_POTTERY_SHERD, 1),
+                        Text.translatable("advancements.${CoffeeMod.MOD_ID}.die.title"),
+                        Text.translatable("advancements.${CoffeeMod.MOD_ID}.die.desc"),
+                        defaultBackground,
+                        AdvancementFrame.GOAL,
+                        true,
+                        false,
+                        true
+                    )
+                ).criterion("heart_attack", SuddenDeathCriterion.Condition())
+                .parent(brewWithBrewingTable)
+                .build(it, "${CoffeeMod.MOD_ID}/heart-attack")
+
+
         }.accept(consumer)
     }
 

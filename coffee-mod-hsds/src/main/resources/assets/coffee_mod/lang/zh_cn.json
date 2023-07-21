@@ -36,5 +36,7 @@
   "advancements.${mod_id}.brew.title": "咖啡机",
   "advancements.${mod_id}.brew.desc": "获得一杯咖啡",
   "gamerule.clearCoffeeExhaustionTimerOnSleep": "睡觉的时候清零劳累的计时器，如果这类的实体不能睡觉那就过一阵会死",
-  "gamerule.noNightSkipIfAnyOnCoffee": "一人睡觉全服熬夜"
+  "gamerule.noNightSkipIfAnyOnCoffee": "一人睡觉全服熬夜",
+  "advancements.${mod_id}.die.title": "996.icu",
+  "advancements.${mod_id}.die.desc": "喝太多咖啡猝死了吧 哈哈"
 }
