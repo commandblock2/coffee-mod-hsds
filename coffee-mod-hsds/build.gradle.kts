@@ -42,6 +42,7 @@ repositories {
     maven("https://maven.wispforest.io")
     maven("https://maven.terraformersmc.com/")
     maven("https://masa.dy.fi/maven")
+    maven("https://oss.sonatype.org/content/repositories/snapshots")
     // hope that there won't be a dependency injection attack someday
 }
 dependencies {
@@ -55,9 +56,10 @@ dependencies {
         project.extra["fabric_language_kotlin_version"] as String
     )
 
-    // development
+    // development runtime
     modLocalRuntime("com.terraformersmc", "modmenu", project.extra["mod_menu_version"] as String)
     modLocalRuntime("carpet", "fabric-carpet", project.extra["carpet_core_version"] as String)
+    modLocalRuntime("me.lucko", "spark-api", project.extra["spark_api_version"] as String)
 }
 tasks {
     val javaVersion = JavaVersion.toVersion((project.extra["java_version"] as String).toInt())
