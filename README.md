@@ -20,5 +20,7 @@ Note that cocoa bean is different from coffee bean in reality
 
 ## TODO
 - Finish advancements and rewrite previous section according to advancements
+- Heart attack Advancement
+- Gamerule reset coffee tick on rest and non sleeping if single player has effect
 - Texturing
 - Also game play improvement like particles and sound effect

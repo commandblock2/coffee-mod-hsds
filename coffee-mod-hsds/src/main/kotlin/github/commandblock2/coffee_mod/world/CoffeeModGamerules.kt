@@ -20,11 +20,8 @@
 package github.commandblock2.coffee_mod.world
 
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory
-
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry
-
 import net.minecraft.world.GameRules
-import net.minecraft.world.GameRules.BooleanRule
 
 
 object CoffeeModGamerules {
