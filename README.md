@@ -1,6 +1,8 @@
 # Coffee Mod <img src="coffee-mod-hsds/src/main/resources/assets/coffee_mod/icon.png" width="64"> (WIP)
 A fabric implementation of the coffee mod, idea by hsds. The link of the video https://www.bilibili.com/video/BV1JD4y1579K/.
 
+# It is known that `Villager Shit Coffee` DOES NOT work properly right now in multiplayer
+
 ## Features
 - [x] Can brew coffee with brewing stand with water bottle and cocoa bean.
 - Consuming coffee gives a potion effect (Coffee Buzz) which

@@ -1,6 +1,8 @@
 # 咖啡模组 <img src="coffee-mod-hsds/src/main/resources/assets/coffee_mod/icon.png" width="64"> (开发中)
 这是一个基于 Fabric 的咖啡模组，灵感来自 hsds。视频链接为 https://www.bilibili.com/video/BV1JD4y1579K/。
 
+# 村民屎咖啡在目前版本的多人游戏中工作不大正常
+
 ## 特性
 - [x] 可以在酿造台上用水瓶和可可豆酿制咖啡
 - 喝咖啡会获得药水效果 "咖啡刺激"，其中包括：
