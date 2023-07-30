@@ -21,8 +21,11 @@ package github.commandblock2.coffee_mod.mixins.minecraft.server.network;
 
 import github.commandblock2.coffee_mod.CoffeeMod;
 import github.commandblock2.coffee_mod.entity.CoffeeModEntitySupport;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.network.packet.s2c.play.DeathMessageS2CPacket;
+import net.minecraft.network.packet.s2c.play.EntityStatusEffectS2CPacket;
 import net.minecraft.scoreboard.AbstractTeam;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -65,5 +68,40 @@ public class MixinServerPlayerEntity {
             }
             ci.cancel();
         }
+    }
+
+
+    @Inject(method = "onStatusEffectApplied", at = @At("HEAD"))
+    void sendToAllPlayers(StatusEffectInstance effect, Entity source, CallbackInfo ci) {
+        final var this_ = (ServerPlayerEntity) (Object) this;
+        this_
+                .getServerWorld()
+                .getPlayers()
+                .forEach(player ->
+                        player
+                                .networkHandler
+                                .sendPacket(
+                                        new EntityStatusEffectS2CPacket(
+                                                this_.getId(), effect
+                                        )
+                                )
+                );
+    }
+
+    @Inject(method = "onStatusEffectUpgraded", at = @At("HEAD"))
+    void sendToAllPlayers(StatusEffectInstance effect, boolean reapplyEffect, Entity source, CallbackInfo ci) {
+        final var this_ = (ServerPlayerEntity) (Object) this;
+        this_
+                .getServerWorld()
+                .getPlayers()
+                .forEach(player ->
+                        player
+                                .networkHandler
+                                .sendPacket(
+                                        new EntityStatusEffectS2CPacket(
+                                                this_.getId(), effect
+                                        )
+                                )
+                );
     }
 }

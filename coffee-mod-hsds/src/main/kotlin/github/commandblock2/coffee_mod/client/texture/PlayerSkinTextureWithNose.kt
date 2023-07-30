@@ -24,10 +24,7 @@ import github.commandblock2.coffee_mod.CoffeeMod
 import net.minecraft.client.render.entity.VillagerEntityRenderer
 import net.minecraft.client.texture.AbstractTexture
 import net.minecraft.client.texture.NativeImage
-import net.minecraft.client.texture.NativeImageBackedTexture
 import net.minecraft.client.texture.PlayerSkinTexture
-import net.minecraft.client.texture.ResourceTexture
-import net.minecraft.client.texture.SpriteAtlasTexture
 import net.minecraft.client.texture.TextureManager
 import net.minecraft.resource.ResourceManager
 import net.minecraft.util.Identifier
@@ -38,7 +35,7 @@ object PlayerSkinTextureWithNose {
     private val skinCache = HashMap<Identifier, Identifier>()
     val nativeImageCache = HashMap<PlayerSkinTexture, NativeImage>()
 
-    fun add(
+    fun get(
         textureManager: TextureManager,
         resourceManager: ResourceManager,
         playerSkinIdentifier: Identifier

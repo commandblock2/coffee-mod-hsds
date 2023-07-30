@@ -35,7 +35,7 @@ public class MixinAbstractClientPlayerEntity {
     void addNoseToSkin(CallbackInfoReturnable<Identifier> cir) {
         final var originalSkin = cir.getReturnValue();
 
-        cir.setReturnValue(PlayerSkinTextureWithNose.INSTANCE.add(
+        cir.setReturnValue(PlayerSkinTextureWithNose.INSTANCE.get(
                 MinecraftClient.getInstance().getTextureManager(),
                 MinecraftClient.getInstance().getResourceManager(),
                 originalSkin

@@ -50,9 +50,12 @@ class CoffeeBuzzStatusEffect : StatusEffect(StatusEffectCategory.NEUTRAL, 0x6c4c
 
     override fun onApplied(entity: LivingEntity?, attributes: AttributeContainer?, amplifier: Int) {
         super.onApplied(entity, attributes, amplifier)
-        if (entity != null) {
-            CoffeeModEntitySupport.addToCoffeeDeathTracker(entity)
-        }
+        entity ?: return
+        val world = entity.entityWorld
+        if (world !is ServerWorld)
+            return
+
+        CoffeeModEntitySupport.addToCoffeeDeathTracker(entity)
         if (entity is VillagerEntity && entity.world is ServerWorld) {
             entity.reinitializeBrain(entity.world as ServerWorld)
         }
